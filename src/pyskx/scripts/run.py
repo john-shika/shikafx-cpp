@@ -15,7 +15,7 @@ def main():
 
     # inject environ for linux operating system
     if not IS_WIN32:
-        os.environ.setdefault("LD_LIBRARY_PATH", ":".join((os.path.join(CURRENT_WORKDIR, "../build-linux"), os.environ.get("LD_LIBRARY_PATH", ""))))
+        os.environ.setdefault("LD_LIBRARY_PATH", ":".join((os.path.join(CURRENT_WORKDIR, "../libs/linux"), os.environ.get("LD_LIBRARY_PATH", ""))))
 
     with subprocess.Popen(COMMANDS, env=os.environ, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False) as pipe:
 
