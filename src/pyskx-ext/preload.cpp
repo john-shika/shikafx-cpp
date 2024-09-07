@@ -13,11 +13,10 @@ auto cpp_hexdump_view(const char* data, size_t size, int cols) -> void {
  * */
 
 auto cpp_base64_encode(const char* data, size_t size, bool padding) -> data_t* {
-    //auto out = skfx_b64_enc::encode((byte_t*)data, size, padding);
-    //auto temp = skfx_ext_mod::copy_str_to_data(out);
-    auto data_ptr = skx_make_shared(create_data((byte_t*)data, size), false);
-    auto base64_data_ptr = skx_make_shared(base64_encode_func(data_ptr.get()));
-    auto temp = base64_data_to_ascii_cvt_func(base64_data_ptr.get(), padding);
+    auto temp = skfx_b64_enc::encode((byte_t*)data, size, padding);
+    //auto data_ptr = skx_make_shared(create_data((byte_t*)data, size), false);
+    //auto base64_data_ptr = skx_make_shared(base64_encode_func(data_ptr.get()));
+    //auto temp = base64_data_to_ascii_cvt_func(base64_data_ptr.get(), padding);
     return temp;
 }
 

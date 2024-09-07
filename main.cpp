@@ -5,8 +5,8 @@
 int main() {
 
     const std::string name = "Ahmad Asy Syafiq";
-    auto base64_ascii = skfx_b64_enc::encode(name, true);
-    std::cout << base64_ascii << std::endl;
+    auto base64_ascii = skx_make_shared(skfx_b64_enc::encode(name, true), false);
+    std::cout << skfx_ext_mod::cast_data_to_str(base64_ascii.get()) << std::endl;
 
     const char* b64 = "QWhtYWQgQXN5IFN5YWZpcQpXb3JraW5nIE9uIENcQysrIExpYnJhcnkKV2l0aCBQcm9qZWN0IE5hbWUKU2hpa2FGeCBMaWJyYXJ5Cg==";
 

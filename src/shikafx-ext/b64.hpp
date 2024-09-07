@@ -20,9 +20,9 @@ namespace skfx_b64_mod {
     public:
         Encoder() = default;
 
-        static auto encode(const byte_t* buff, size_t size, bool padding = true) -> std::string;
-        static auto encode(const data_t* data, bool padding = true) -> std::string;
-        static auto encode(const std::string& val, bool padding = true) -> std::string;
+        static auto encode(const byte_t* buff, size_t size, bool padding = true) -> data_t*;
+        static auto encode(const data_t* data, bool padding = true) -> data_t*;
+        static auto encode(const std::string& val, bool padding = true) -> data_t*;
 
     };
 
