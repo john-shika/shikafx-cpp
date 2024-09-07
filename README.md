@@ -2,12 +2,12 @@
 
 - python
 ```python3
-import sys
-import importlib as imports
-sys.path.insert(0, "exports/pyskx/swig/example")
-pyskx = imports.import_module("pyskx")
-pyskx.skx_hexdump_view("Ahmad Asy Syafiq")
-# Output: 00000000 <│> 41 68 6d 61 64 20 41 73 79 20 53 79 61 66 69 71 <│> Ahmad Asy Syafiq <│>
+# change directory to src/pyskx/libs/linux or src\pyskx\libs\win32 for windows compatible
+import pyskx
+pyskx.py_hexdump_view("Ahmad Asy Syafiq\x00\x00")
+# Output: -
+#   00000000 <│> 41 68 6d 61 64 20 41 73 79 20 53 79 61 66 69 71 <│> Ahmad.Asy.Syafiq <│>
+#   00000001 <│> 00 00 .. .. .. .. .. .. .. .. .. .. .. .. .. .. <│> ..               <│>
 ```
 
 - linux
