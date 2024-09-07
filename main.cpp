@@ -16,12 +16,16 @@ int main() {
     std::string value = skfx_ext_mod::cast_data_to_str(data.get());
     std::cout << value << std::endl;
 
-    auto nums = new typed_nums_t[10] {
+    size_t n = 13;
+    auto nums = new typed_nums_t[n] {
             create_typed_nums__int(6),
+            create_typed_nums__long(12),
             create_typed_nums__long(9),
+            create_typed_nums__long(10),
             create_typed_nums__ushort(1),
             create_typed_nums__char(2),
             create_typed_nums__int(3),
+            create_typed_nums__long(11),
             create_typed_nums__short(5),
             create_typed_nums__llong(8),
             create_typed_nums__int(7),
@@ -29,11 +33,11 @@ int main() {
             create_typed_nums__double(4)
     };
 
-    //skx_mergesort_typed_nums(nums, 10);
-    //skx_quicksort_typed_nums(nums, 10);
-    skx_sort_typed_nums(nums, 10);
+    //skx_mergesort_typed_nums(nums, n);
+    skx_quicksort_typed_nums(nums, n);
+    //skx_sort_typed_nums(nums, n);
 
-    for (int64_t i = 0; i < 10; i++) {
+    for (size_t i = 0; i < n; i++) {
         printf("%.2Lf ", skx_typed_nums__to_ldouble(nums[i]));
     }
 

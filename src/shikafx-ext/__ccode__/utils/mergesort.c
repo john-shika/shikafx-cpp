@@ -1,9 +1,11 @@
 #include "./mergesort.h"
 
-void skx_mergesort_typed_nums__merge(typed_nums_t* data, const int64_t left, const int64_t mid, const int64_t right) {
-    int64_t i, j, k;
-    const int64_t n1 = mid - left + 1;
-    const int64_t n2 = right - mid;
+void skx_mergesort_typed_nums__merge(typed_nums_t* data, const size_t left, const size_t mid, const size_t right) {
+    if (right < mid || mid < left || right < left) return;
+    
+    size_t i, j, k;
+    const size_t n1 = mid - left + 1;
+    const size_t n2 = right - mid;
     
     if (n1 <= 0 || n2 <= 0) {
         return;
@@ -60,9 +62,9 @@ void skx_mergesort_typed_nums__merge(typed_nums_t* data, const int64_t left, con
 
 #pragma clang diagnostic push
 #pragma ide diagnostic ignored "misc-no-recursion"
-void skx_mergesort_typed_nums__init(typed_nums_t* data, const int64_t left, const int64_t right) {
+void skx_mergesort_typed_nums__init(typed_nums_t* data, const size_t left, const size_t right) {
     if (left < right) {
-        int64_t mid = left + (right - left) / 2;
+        size_t mid = left + (right - left) / 2;
         
         // Sort first and second halves recursively
         skx_mergesort_typed_nums__init(data, left, mid);
@@ -74,6 +76,6 @@ void skx_mergesort_typed_nums__init(typed_nums_t* data, const int64_t left, cons
 }
 #pragma clang diagnostic pop
 
-void skx_mergesort_typed_nums(typed_nums_t* data, const int64_t size) {
+void skx_mergesort_typed_nums(typed_nums_t* data, const size_t size) {
     skx_mergesort_typed_nums__init(data, 0, size - 1);
 }
