@@ -3,6 +3,14 @@
 
 #define skfx_com_mod shikafx::ext::common
 
+// short using
+#define skx_min skfx_com_mod::min_int
+#define skx_min32 skfx_com_mod::min_int
+#define skx_min64 skfx_com_mod::min_size_t
+#define skx_max skfx_com_mod::max_int
+#define skx_max32 skfx_com_mod::max_int
+#define skx_max64 skfx_com_mod::max_size_t
+
 namespace skfx_com_mod {
 
     auto min_int(int value) -> int;

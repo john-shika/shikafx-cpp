@@ -14,6 +14,10 @@
 #define skfx_b64_enc skfx_b64_mod::Encoder
 #define skfx_b64_dec skfx_b64_mod::Decoder
 
+// short using
+#define skx_b64_enc skfx_b64_enc::encode
+#define skx_b64_dec skfx_b64_dec::decode
+
 namespace skfx_b64_mod {
 
     class Encoder {

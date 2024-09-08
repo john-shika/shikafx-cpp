@@ -1,76 +1,62 @@
 #include "./utils.hpp"
 
-auto skfx_ext_mod::copy_str(const std::string& val) -> std::string {
-    std::string temp = (const char*)skfx_ext_mod::copy_str_to_bytes(val);
+auto skx_copy_str(const std::string& val) -> std::string {
+    auto buff = skx_copy_str_to_chars(val);
+    std::string temp(buff, buff + val.size());
     return temp;
 }
 
-// copy without null terminate
-auto skfx_ext_mod::copy_str_to_bytes(const std::string& val) -> byte_t* {
-    auto buff = cast_str_to_byte_stack(val); // not copied
+auto skx_cast_str_to_bytes(const std::string& val) -> const byte_t* {
+    auto temp = (const byte_t*)val.data();
+    return temp;
+}
+
+auto skx_cast_str_to_data(const std::string& val) -> const data_t* {
+    auto buff = skx_cast_str_to_bytes(val);
+    auto temp = create_data(buff, val.size());
+    return temp;
+}
+
+auto skx_copy_str_to_bytes(const std::string& val) -> byte_t* {
+    auto buff = skx_cast_str_to_bytes(val);
     auto temp = create_byte_stack(val.size());
     memcpy(temp, buff, val.size());
     return temp;
 }
 
-auto skfx_ext_mod::copy_str_to_char_stack_wnt(const std::string& val) -> char* {
-    return copy_char_stack_wnt_func(val.data(), val.size());
-}
-
-auto skfx_ext_mod::copy_str_to_byte_stack_wnt(const std::string& val) -> byte_t* {
-    auto buff = cast_str_to_byte_stack(val);
-    return copy_byte_stack_wnt_func(buff, val.size());
-}
-
-/*
- * It sounds like the issue might be related to the lifetime and ownership of
- * the std::string object. In C++, std::string manages its own memory, and if
- * the string goes out of scope or is modified, the underlying data pointer
- * can become invalid. This can lead to undefined behavior, especially when
- * interfacing with Cython.
- * */
-
-auto skfx_ext_mod::copy_str_to_data(const std::string& val) -> data_t* {
-    //return skfx_ext_mod::cast_str_to_data(copy_str(val));
-    return create_data(copy_str_to_bytes(val), val.size());
-}
-
-auto skfx_ext_mod::cast_str_to_data(const std::string& val) -> data_t* {
-    auto buff = cast_str_to_byte_stack(val); // not copied
-    return create_data(buff, val.size());
-}
-
-// copy without null terminate
-auto skfx_ext_mod::cast_str_to_byte_stack(const std::string& val) -> const byte_t* {
-    auto buff = (const byte_t*)val.data();
-    return buff;
-}
-
-auto skfx_ext_mod::cast_data_to_str(const data_t* data) -> std::string {
-    std::string temp(data->data, data->data + data->size);
+auto skx_copy_str_to_chars(const std::string& val) -> char* {
+    auto temp = copy_char_stack_wnt_func(val.data(), val.size());
     return temp;
 }
 
-auto skfx_ext_mod::copy_data_to_str(const data_t* data) -> std::string {
-    auto temp = skfx_ext_mod::cast_data_to_str(data);
-    return copy_str(temp);
+auto skx_copy_str_to_data(const std::string& val) -> data_t* {
+    auto buff  = skx_copy_str_to_bytes(val);
+    auto temp = create_data(buff, val.size());
+    return temp;
 }
 
-// copy without null terminate
-auto skfx_ext_mod::copy_data_to_byte_stack(const data_t* data) -> byte_t* {
-    auto buff = copy_byte_stack_func(data->data, data->size);
-    return buff;
+auto skx_cast_data_to_bytes(const data_t* data) -> const byte_t* {
+    return data->data;
 }
 
-auto skfx_ext_mod::copy_data_to_char_stack_wnt(const data_t* data) -> char* {
-    return (char*)skfx_ext_mod::copy_data_to_byte_stack_wnt(data);
+auto skx_copy_data_to_bytes(const data_t* data) -> byte_t* {
+    auto temp = copy_byte_stack_func(data->data, data->size);
+    return temp;
 }
 
-auto skfx_ext_mod::copy_data_to_byte_stack_wnt(const data_t* data) -> byte_t* {
-    return copy_byte_stack_wnt_func(data->data, data->size);
+auto skx_copy_data_to_chars(const data_t* data) -> char* {
+    auto buff = (const char*)data->data;
+    auto temp = copy_char_stack_wnt_func(buff, data->size);
+    return temp;
 }
 
-auto skfx_ext_mod::hexdump_view(const byte_t* data, size_t size, int cols) -> void {
+auto skx_copy_data_to_str(const data_t* data) -> std::string {
+    auto buff = skx_copy_data_to_chars(data);
+    std::string temp(buff, buff + data->size);
+    return temp;
+}
+
+auto skx_hexdump_view(const byte_t* data, size_t size, int cols) -> void {
 
     size_t i = 0;
     size_t j = 0;
@@ -123,15 +109,15 @@ auto skfx_ext_mod::hexdump_view(const byte_t* data, size_t size, int cols) -> vo
     }
 }
 
-auto skfx_ext_mod::hexdump_view(const char* data, size_t size, int cols) -> void {
+auto skx_hexdump_view(const char* data, size_t size, int cols) -> void {
     auto buff = (const byte_t*)data;
-    skfx_ext_mod::hexdump_view(buff, size, cols);
+    skx_hexdump_view(buff, size, cols);
 }
 
-auto skfx_ext_mod::hexdump_view(const data_t* data, int cols) -> void {
-    skfx_ext_mod::hexdump_view(data->data, data->size, cols);
+auto skx_hexdump_view(const data_t* data, int cols) -> void {
+    skx_hexdump_view(data->data, data->size, cols);
 }
 
-auto skfx_ext_mod::hexdump_view(const std::string& val, int cols) -> void {
-    skfx_ext_mod::hexdump_view(val.data(), val.size(), cols);
+auto skx_hexdump_view(const std::string& val, int cols) -> void {
+    skx_hexdump_view(val.data(), val.size(), cols);
 }

@@ -5,21 +5,26 @@ import sys
 import importlib as imports
 
 from types import ModuleType
-from typing import Any, Callable, Concatenate, ParamSpec, TypeVar
+from typing import Callable, Concatenate, ParamSpec, TypeVar
 
 IS_WIN32 = sys.platform == "win32"
 CURRENT_WORKDIR = os.path.dirname(__file__)
 LIBRARY_DIR = "libs/win32" if IS_WIN32 else "libs/linux"
 
+S = TypeVar("S")
+
 P = ParamSpec("P")
 T = TypeVar("T")
 
-def inject(module: ModuleType, name: str) -> Callable[[Callable[Concatenate[Any, Callable[P, T], P], T]], Callable[Concatenate[Any, P], T]]:
-    def outer(fn: Callable[Concatenate[Any, Callable[P, T], P], T]) -> Callable[Concatenate[Any, P], T]:
+W = Callable[Concatenate[S, Callable[P, T], P], T]
+M = Callable[Concatenate[S, P], T]
+
+def inject(module: ModuleType, name: str) -> Callable[[W], M]:
+    def outer(fn: W) -> M:
         obj = getattr(module, name, None)
         if obj is not None:
             if callable(obj):
-                def inner(s: Any, *args: P.args, **kwargs: P.kwargs) -> T:
+                def inner(s: S, *args: P.args, **kwargs: P.kwargs) -> T:
                     return fn(s, obj, *args, **kwargs)
 
                 return inner
@@ -44,7 +49,7 @@ def main():
 
         @inject(pyskx, "py_hexdump_view")
         def py_hexdump_view_test(self, py_hexdump_view):
-            py_hexdump_view("\x00\x00Ahmad Asy Syafiq\x00\x00")
+            py_hexdump_view("\x00\x00Ahmad Asy Syafiq\x00\x00", 4)
 
         @inject(pyskx, "py_base64_encode")
         def py_base64_encode_test(self, py_base64_encode):

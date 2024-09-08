@@ -1,17 +1,17 @@
 #include "./common.hpp"
 
-auto skfx_com_mod::min_int(int value) -> int {
+auto skx_min32(int value) -> int {
     return value;
 }
 
-auto skfx_com_mod::max_int(int value) -> int {
+auto skx_max32(int value) -> int {
     return value;
 }
 
-auto skfx_com_mod::min_size_t(size_t value) -> size_t {
+auto skx_min64(size_t value) -> size_t {
     return value;
 }
 
-auto skfx_com_mod::max_size_t(size_t value) -> size_t {
+auto skx_max64(size_t value) -> size_t {
     return value;
 }

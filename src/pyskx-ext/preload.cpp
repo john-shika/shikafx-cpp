@@ -1,7 +1,7 @@
 #include "preload.hpp"
 
 auto cpp_hexdump_view(const char* data, size_t size, int cols) -> void {
-    skfx_ext_mod::hexdump_view(data, size, cols);
+    skx_hexdump_view(data, size, cols);
 }
 
 /*
@@ -13,15 +13,12 @@ auto cpp_hexdump_view(const char* data, size_t size, int cols) -> void {
  * */
 
 auto cpp_base64_encode(const char* data, size_t size, bool padding) -> data_t* {
-    auto temp = skfx_b64_enc::encode((byte_t*)data, size, padding);
-    //auto data_ptr = skx_make_shared(create_data((byte_t*)data, size), false);
-    //auto base64_data_ptr = skx_make_shared(base64_encode_func(data_ptr.get()));
-    //auto temp = base64_data_to_ascii_cvt_func(base64_data_ptr.get(), padding);
+    auto temp = skx_b64_enc((byte_t*)data, size, padding);
     return temp;
 }
 
 auto cpp_base64_decode(const char* data, size_t size) -> data_t* {
-    auto out = skfx_b64_dec::decode(data, size);
+    auto out = skx_b64_dec(data, size);
     return out;
 }
 
