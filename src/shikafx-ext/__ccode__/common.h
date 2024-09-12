@@ -43,9 +43,9 @@ static const int ASCII_WHITESPACES_SIZE = 6;
 static const char* ASCII_PRINTABLE = "0123456789" "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~" " \t\n\r\x0b\x0c";
 static const int ASCII_PRINTABLE_SIZE = 100;
 
-bool is_ascii_alphanum(const byte_t chr);
-bool is_ascii_drawable(byte_t chr);
-bool is_ascii_printable(byte_t chr);
+bool ascii_isAlphaNum(const byte_t chr);
+bool ascii_isDrawable(byte_t chr);
+bool ascii_isPrintable(byte_t chr);
 
 char* create_char_stack(size_t size);
 void drop_char_stack(const char* data);
@@ -59,14 +59,13 @@ typedef struct {
 } data_t;
 
 data_t* create_data(const byte_t* data, size_t size);
-
 void drop_data(const data_t* data, bool drop_field);
 
-bool isSpaceTab(byte_t chr);
-size_t spaceTabsCount(const char* value, size_t size);
+bool isEmptySpaceOrNull(byte_t chr);
+bool isEmptySpace(const byte_t chr);
 
-bool isLower(char chr);
-bool isUpper(char chr);
+bool isLower(byte_t chr);
+bool isUpper(byte_t chr);
 
 char toLower(char chr);
 char toUpper(char chr);
@@ -76,16 +75,42 @@ const char* toUpperCase(const char* value, size_t size);
 
 char toCapitalized(char chr, const bool capitalized);
 
+size_t toTrimStartCalcSize(const char* value, size_t size);
 const data_t* toTrimStart(const char* value, size_t size);
+
+size_t toTrimEndCalcSize(const char* value, const size_t size);
 const data_t* toTrimEnd(const char* value, size_t size);
+
+size_t toTrimCalcSize(const char* value, size_t size);
 const data_t* toTrim(const char* value, size_t size);
 
+size_t toTitleCaseCalcSize(const char* value, size_t size);
 const data_t* toTitleCase(const char* value, size_t size);
+
+size_t toCamelCaseCalcSize(const char* value, size_t size);
 const data_t* toCamelCase(const char* value, size_t size);
+const data_t* toUpperCamelCase(const char* value, size_t size);
+
+size_t toSnakeCaseCalcSize(const char* value, size_t size);
 const data_t* toSnakeCase(const char* value, size_t size);
+
+size_t toKebabCaseCalcSize(const char* value, size_t size);
 const data_t* toKebabCase(const char* value, size_t size);
 
-const data_t* toUpperCamelCase(const char* value, size_t size);
+// ============ data ============ //
+
+const data_t* data_toLowerCase(const data_t* data);
+const data_t* data_toUpperCase(const data_t* data);
+const data_t* data_toTrimStart(const data_t* data);
+const data_t* data_toTrimEnd(const data_t* data);
+const data_t* data_toTrim(const data_t* data);
+const data_t* data_toTitleCase(const data_t* data);
+const data_t* data_toCamelCase(const data_t* data);
+const data_t* data_toUpperCamelCase(const data_t* data);
+const data_t* data_toSnakeCase(const data_t* data);
+const data_t* data_toKebabCase(const data_t* data);
+
+// ============ data ============ //
 
 // extras files
 #include "./commons/datetime.h"

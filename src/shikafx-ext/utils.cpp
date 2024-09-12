@@ -61,7 +61,7 @@ auto skx_hexdump_view(const byte_t* data, size_t size, int cols) -> void {
     size_t i = 0;
     size_t j = 0;
 
-    auto vLine = &u8"<│>";
+    std::string vLine = (const char*)u8"<│>";
 
     while (i < size) {
 
@@ -89,7 +89,7 @@ auto skx_hexdump_view(const byte_t* data, size_t size, int cols) -> void {
         //drawable
         for (size_t m = i; m < k; m++) {
             auto val = data[m];
-            if (!is_ascii_drawable(val)) {
+            if (!ascii_isDrawable(val)) {
                 std::cout << ".";
                 continue;
             }

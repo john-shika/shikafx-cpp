@@ -9,7 +9,7 @@ set(CMAKE_INSTALL_RPATH "")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-option(USE_DEBUG "Enable debug mode" ON)
+option(USE_DEBUG "Enable debug mode" OFF)
 
 if (USE_DEBUG)
     add_compile_definitions(DEBUG=1)

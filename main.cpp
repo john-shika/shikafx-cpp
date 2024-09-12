@@ -57,7 +57,7 @@ int main() {
         buff = toUpperCase((const char*)in->data, in->size);
 
         auto temp = std::string(buff, buff + in->size);
-        std::cout << temp << std::endl;
+        std::cout << "\"" << temp << "\"" << std::endl;
     }();
 
     []() -> void {
@@ -67,7 +67,7 @@ int main() {
         buff = toLowerCase((const char*)in->data, in->size);
 
         auto temp = std::string(buff, buff + in->size);
-        std::cout << temp << std::endl;
+        std::cout << "\"" << temp << "\"" << std::endl;
     }();
 
     []() -> void {
@@ -78,7 +78,7 @@ int main() {
 
         auto temp = std::string(out->data, out->data + out->size);
         printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
-        std::cout << temp << std::endl;
+        std::cout << "\"" << temp << "\"" << std::endl;
     }();
 
     []() -> void {
@@ -89,7 +89,7 @@ int main() {
 
         auto temp = std::string(out->data, out->data + out->size);
         printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
-        std::cout << temp << std::endl;
+        std::cout << "\"" << temp << "\"" << std::endl;
     }();
 
     []() -> void {
@@ -100,7 +100,7 @@ int main() {
 
         auto temp = std::string(out->data, out->data + out->size);
         printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
-        std::cout << temp << std::endl;
+        std::cout << "\"" << temp << "\"" << std::endl;
     }();
 
     []() -> void {
@@ -111,7 +111,51 @@ int main() {
 
         auto temp = std::string(out->data, out->data + out->size);
         printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
-        std::cout << temp << std::endl;
+        std::cout << "\"" << temp << "\"" << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "  HELLO,   WORLD!      ";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        auto out = skx_make_shared(toTrimStart((const char*)in->data, in->size));
+
+        auto temp = std::string(out->data, out->data + out->size);
+        printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
+        std::cout << "\"" << temp << "\"" << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "  HELLO,   WORLD!      ";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        auto out = skx_make_shared(toTrimEnd((const char*)in->data, in->size));
+
+        auto temp = std::string(out->data, out->data + out->size);
+        printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
+        std::cout << "\"" << temp << "\"" << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "  HELLO,   WORLD!      ";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        auto out = skx_make_shared(toTrim((const char*)in->data, in->size));
+
+        auto temp = std::string(out->data, out->data + out->size);
+        printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
+        std::cout << "\"" << temp << "\"" << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "  HELLO,   WORLD!      ";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        auto out = skx_make_shared(toUpperCamelCase((const char*)in->data, in->size));
+
+        auto temp = std::string(out->data, out->data + out->size);
+        printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
+        std::cout << "\"" << temp << "\"" << std::endl;
     }();
 
     return EXIT_SUCCESS;
