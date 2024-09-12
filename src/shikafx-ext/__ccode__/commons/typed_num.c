@@ -1,104 +1,104 @@
-#include "./typed_nums.h"
+#include "./typed_num.h"
 
-typed_nums_t create_typed_nums__bool(const bool b) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__bool(const bool b) {
+    typed_num_t tn;
     tn.kind = BOOL;
     tn.value.b = b;
     return tn;
 }
 
-typed_nums_t create_typed_nums__char(const char c) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__char(const char c) {
+    typed_num_t tn;
     tn.kind = CHAR;
     tn.value.c = c;
     return tn;
 }
 
-typed_nums_t create_typed_nums__uchar(const unsigned char uc) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__uchar(const unsigned char uc) {
+    typed_num_t tn;
     tn.kind = UCHAR;
     tn.value.uc = uc;
     return tn;
 }
 
-typed_nums_t create_typed_nums__short(const short s) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__short(const short s) {
+    typed_num_t tn;
     tn.kind = SHORT;
     tn.value.s = s;
     return tn;
 }
 
-typed_nums_t create_typed_nums__ushort(const unsigned short us) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__ushort(const unsigned short us) {
+    typed_num_t tn;
     tn.kind = USHORT;
     tn.value.us = us;
     return tn;
 }
 
-typed_nums_t create_typed_nums__int(const int i) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__int(const int i) {
+    typed_num_t tn;
     tn.kind = INT;
     tn.value.i = i;
     return tn;
 }
 
-typed_nums_t create_typed_nums__uint(const unsigned int ui) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__uint(const unsigned int ui) {
+    typed_num_t tn;
     tn.kind = UINT;
     tn.value.ui = ui;
     return tn;
 }
 
-typed_nums_t create_typed_nums__long(const long int l) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__long(const long int l) {
+    typed_num_t tn;
     tn.kind = LONG;
     tn.value.l = l;
     return tn;
 }
 
-typed_nums_t create_typed_nums__ulong(const unsigned long int ul) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__ulong(const unsigned long int ul) {
+    typed_num_t tn;
     tn.kind = ULONG;
     tn.value.ul = ul;
     return tn;
 }
 
-typed_nums_t create_typed_nums__llong(const long long int ll) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__llong(const long long int ll) {
+    typed_num_t tn;
     tn.kind = LLONG;
     tn.value.ll = ll;
     return tn;
 }
 
-typed_nums_t create_typed_nums__ullong(const unsigned long long int ull) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__ullong(const unsigned long long int ull) {
+    typed_num_t tn;
     tn.kind = ULLONG;
     tn.value.ull = ull;
     return tn;
 }
 
-typed_nums_t create_typed_nums__float(const float f) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__float(const float f) {
+    typed_num_t tn;
     tn.kind = FLOAT;
     tn.value.f = f;
     return tn;
 }
 
-typed_nums_t create_typed_nums__double(const double d) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__double(const double d) {
+    typed_num_t tn;
     tn.kind = DOUBLE;
     tn.value.d = d;
     return tn;
 }
 
-typed_nums_t create_typed_nums__ldouble(const long double ld) {
-    typed_nums_t tn;
+typed_num_t create_typed_num__ldouble(const long double ld) {
+    typed_num_t tn;
     tn.kind = LDOUBLE;
     tn.value.ld = ld;
     return tn;
 }
 
-long double skx_typed_nums__to_ldouble(typed_nums_t nums) {
+long double skx_typed_num__to_ldouble(typed_num_t nums) {
     long double val;
     switch (nums.kind) {
         case BOOL: val = nums.value.b; break;
@@ -120,10 +120,10 @@ long double skx_typed_nums__to_ldouble(typed_nums_t nums) {
     return val;
 }
 
-int skx_typed_nums__cmp(typed_nums_t a, typed_nums_t b) {
+int skx_typed_num__cmp(typed_num_t a, typed_num_t b) {
     if (a.kind != b.kind) {
-        long double va = skx_typed_nums__to_ldouble(a);
-        long double vb = skx_typed_nums__to_ldouble(b);
+        long double va = skx_typed_num__to_ldouble(a);
+        long double vb = skx_typed_num__to_ldouble(b);
         int comp = (va > vb) - (va < vb);
         return comp;
     } else {
@@ -147,28 +147,28 @@ int skx_typed_nums__cmp(typed_nums_t a, typed_nums_t b) {
     return 0;
 }
 
-bool skx_typed_nums__eq(typed_nums_t a, typed_nums_t b) {
-    return skx_typed_nums__cmp(a, b) == 0;
+bool skx_typed_num__eq(typed_num_t a, typed_num_t b) {
+    return skx_typed_num__cmp(a, b) == 0;
 }
 
-bool skx_typed_nums__ge(typed_nums_t a, typed_nums_t b) {
-    return 0 <= skx_typed_nums__cmp(a, b);
+bool skx_typed_num__ge(typed_num_t a, typed_num_t b) {
+    return 0 <= skx_typed_num__cmp(a, b);
 }
 
-bool skx_typed_nums__gt(typed_nums_t a, typed_nums_t b) {
-    return 0 < skx_typed_nums__cmp(a, b);
+bool skx_typed_num__gt(typed_num_t a, typed_num_t b) {
+    return 0 < skx_typed_num__cmp(a, b);
 }
 
-bool skx_typed_nums__le(typed_nums_t a, typed_nums_t b) {
-    return skx_typed_nums__cmp(a, b) <= 0;
+bool skx_typed_num__le(typed_num_t a, typed_num_t b) {
+    return skx_typed_num__cmp(a, b) <= 0;
 }
 
-bool skx_typed_nums__lt(typed_nums_t a, typed_nums_t b) {
-    return skx_typed_nums__cmp(a, b) < 0;
+bool skx_typed_num__lt(typed_num_t a, typed_num_t b) {
+    return skx_typed_num__cmp(a, b) < 0;
 }
 
-void skx_typed_nums__swap(typed_nums_t* a, typed_nums_t* b) {
-    typed_nums_t va = *a;
+void skx_typed_num__swap(typed_num_t* a, typed_num_t* b) {
+    typed_num_t va = *a;
     *a = *b;
     *b = va;
 }

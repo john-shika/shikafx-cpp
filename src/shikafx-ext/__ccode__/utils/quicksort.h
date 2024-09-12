@@ -9,10 +9,10 @@ extern "C" {
 
 // using size_t, because skx_quicksort_typed_nums decrement low value at 0
 
-void skx_quicksort_typed_nums__swap(typed_nums_t* data, size_t left, size_t right);
-size_t skx_quicksort_typed_nums__partition(typed_nums_t* data, size_t low, size_t high);
-void skx_quicksort_typed_nums__init(typed_nums_t* data, size_t low, size_t high);
-void skx_quicksort_typed_nums(typed_nums_t* data, size_t size);
+void skx_quicksort_typed_num__swap(typed_num_t* data, size_t left, size_t right);
+size_t skx_quicksort_typed_num__partition(typed_num_t* data, size_t low, size_t high);
+void skx_quicksort_typed_num__init(typed_num_t* data, size_t low, size_t high);
+void skx_quicksort_typed_num(typed_num_t* data, size_t size);
 
 #ifdef __cplusplus
 }

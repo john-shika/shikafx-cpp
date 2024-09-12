@@ -114,7 +114,7 @@ const data_t* data_toKebabCase(const data_t* data);
 
 // extras files
 #include "./commons/datetime.h"
-#include "./commons/typed_nums.h"
+#include "./commons/typed_num.h"
 
 #ifdef __cplusplus
 }

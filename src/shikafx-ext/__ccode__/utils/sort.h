@@ -7,8 +7,8 @@ extern "C" {
 
 #include "../common.h"
 
-void skx_sort_typed_nums__swap(typed_nums_t *data, size_t a, size_t b);
-void skx_sort_typed_nums(typed_nums_t *data, size_t size);
+void skx_sort_typed_num__swap(typed_num_t *data, size_t a, size_t b);
+void skx_sort_typed_num(typed_num_t *data, size_t size);
 
 #ifdef __cplusplus
 }

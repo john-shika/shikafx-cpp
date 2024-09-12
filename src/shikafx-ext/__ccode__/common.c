@@ -556,4 +556,4 @@ const data_t* data_toKebabCase(const data_t* data) {
 
 // extras files
 #include "./commons/datetime.c"
-#include "./commons/typed_nums.c"
+#include "./commons/typed_num.c"

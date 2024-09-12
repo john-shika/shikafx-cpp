@@ -11,9 +11,9 @@ extern "C" {
 
 // using size_t, because skx_mergesort_typed_nums decrement low value at 0
 
-void skx_mergesort_typed_nums__merge(typed_nums_t* data, size_t left, size_t mid, size_t right);
-void skx_mergesort_typed_nums__init(typed_nums_t* data, size_t left, size_t right);
-void skx_mergesort_typed_nums(typed_nums_t* data, size_t size);
+void skx_mergesort_typed_num__merge(typed_num_t* data, size_t left, size_t mid, size_t right);
+void skx_mergesort_typed_num__init(typed_num_t* data, size_t left, size_t right);
+void skx_mergesort_typed_num(typed_num_t* data, size_t size);
 
 #ifdef __cplusplus
 }

@@ -46,20 +46,20 @@ typedef struct {
     nums_t value;
 } typed_nums_t;
 
-typed_nums_t create_typed_nums__bool(bool b);
-typed_nums_t create_typed_nums__char(char c);
-typed_nums_t create_typed_nums__uchar(unsigned char uc);
-typed_nums_t create_typed_nums__short(short s);
-typed_nums_t create_typed_nums__ushort(unsigned short us);
-typed_nums_t create_typed_nums__int(int i);
-typed_nums_t create_typed_nums__uint(unsigned int ui);
-typed_nums_t create_typed_nums__long(long int l);
-typed_nums_t create_typed_nums__ulong(unsigned long int ul);
-typed_nums_t create_typed_nums__llong(long long int ll);
-typed_nums_t create_typed_nums__ullong(unsigned long long int ull);
-typed_nums_t create_typed_nums__float(float f);
-typed_nums_t create_typed_nums__double(double d);
-typed_nums_t create_typed_nums__ldouble(long double ld);
+typed_nums_t create_typed_num__bool(bool b);
+typed_nums_t create_typed_num__char(char c);
+typed_nums_t create_typed_num__uchar(unsigned char uc);
+typed_nums_t create_typed_num__short(short s);
+typed_nums_t create_typed_num__ushort(unsigned short us);
+typed_nums_t create_typed_num__int(int i);
+typed_nums_t create_typed_num__uint(unsigned int ui);
+typed_nums_t create_typed_num__long(long int l);
+typed_nums_t create_typed_num__ulong(unsigned long int ul);
+typed_nums_t create_typed_num__llong(long long int ll);
+typed_nums_t create_typed_num__ullong(unsigned long long int ull);
+typed_nums_t create_typed_num__float(float f);
+typed_nums_t create_typed_num__double(double d);
+typed_nums_t create_typed_num__ldouble(long double ld);
 
 long double skx_typed_nums__to_ldouble(typed_nums_t nums);
 
