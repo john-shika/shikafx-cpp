@@ -1,7 +1,4 @@
 #include "./utils.h"
-#include "./utils/quicksort.c"
-#include "./utils/mergesort.c"
-#include "./utils/sort.c"
 
 char* copy_char_stack_func(const char* buff, const size_t size) {
 
@@ -43,3 +40,8 @@ void panic(const char* message) {
     fprintf(stderr, "Panic: %s\n", message);
     abort();
 }
+
+// extra files
+#include "./utils/quicksort.c"
+#include "./utils/mergesort.c"
+#include "./utils/sort.c"

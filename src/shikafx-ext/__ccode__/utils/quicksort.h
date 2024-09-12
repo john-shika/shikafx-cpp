@@ -1,5 +1,5 @@
-#ifndef C_SHIKAFX_EXTRAS_COMMONS_QUICKSORT
-#define C_SHIKAFX_EXTRAS_COMMONS_QUICKSORT
+#ifndef C_SHIKAFX_EXTRAS_UTILS_QUICKSORT
+#define C_SHIKAFX_EXTRAS_UTILS_QUICKSORT
 
 #ifdef __cplusplus
 extern "C" {
@@ -18,4 +18,4 @@ void skx_quicksort_typed_nums(typed_nums_t* data, size_t size);
 }
 #endif // __cplusplus
 
-#endif // C_SHIKAFX_EXTRAS_COMMONS_QUICKSORT
+#endif // C_SHIKAFX_EXTRAS_UTILS_QUICKSORT

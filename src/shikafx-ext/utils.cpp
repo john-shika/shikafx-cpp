@@ -2,7 +2,7 @@
 
 auto skx_copy_str(const std::string& val) -> std::string {
     auto buff = skx_copy_str_to_chars(val);
-    std::string temp(buff, buff + val.size());
+    auto temp = std::string(buff, buff + val.size());
     return temp;
 }
 
@@ -52,7 +52,7 @@ auto skx_copy_data_to_chars(const data_t* data) -> char* {
 
 auto skx_copy_data_to_str(const data_t* data) -> std::string {
     auto buff = skx_copy_data_to_chars(data);
-    std::string temp(buff, buff + data->size);
+    auto temp = std::string(buff, buff + data->size);
     return temp;
 }
 
@@ -61,7 +61,7 @@ auto skx_hexdump_view(const byte_t* data, size_t size, int cols) -> void {
     size_t i = 0;
     size_t j = 0;
 
-    std::string vLine = (const char*)u8"<│>";
+    auto vLine = &u8"<│>";
 
     while (i < size) {
 

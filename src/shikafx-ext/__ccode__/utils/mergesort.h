@@ -1,5 +1,5 @@
-#ifndef C_SHIKAFX_EXTRAS_COMMONS_MERGESORT
-#define C_SHIKAFX_EXTRAS_COMMONS_MERGESORT
+#ifndef C_SHIKAFX_EXTRAS_UTILS_MERGESORT
+#define C_SHIKAFX_EXTRAS_UTILS_MERGESORT
 
 #ifdef __cplusplus
 extern "C" {
@@ -19,4 +19,4 @@ void skx_mergesort_typed_nums(typed_nums_t* data, size_t size);
 }
 #endif // __cplusplus
 
-#endif // C_SHIKAFX_EXTRAS_COMMONS_MERGESORT
+#endif // C_SHIKAFX_EXTRAS_UTILS_MERGESORT

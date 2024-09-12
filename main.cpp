@@ -50,5 +50,69 @@ int main() {
         delete[] nums;
     }();
 
+    []() -> void {
+        auto buff = "hello,   world!";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        buff = toUpperCase((const char*)in->data, in->size);
+
+        auto temp = std::string(buff, buff + in->size);
+        std::cout << temp << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "HELLO,   WORLD!";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        buff = toLowerCase((const char*)in->data, in->size);
+
+        auto temp = std::string(buff, buff + in->size);
+        std::cout << temp << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "  HELLO,   WORLD!      ";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        auto out = skx_make_shared(toTitleCase((const char*)in->data, in->size));
+
+        auto temp = std::string(out->data, out->data + out->size);
+        printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
+        std::cout << temp << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "  HELLO,   WORLD!      ";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        auto out = skx_make_shared(toCamelCase((const char*)in->data, in->size));
+
+        auto temp = std::string(out->data, out->data + out->size);
+        printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
+        std::cout << temp << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "  HELLO,   WORLD!      ";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        auto out = skx_make_shared(toSnakeCase((const char*)in->data, in->size));
+
+        auto temp = std::string(out->data, out->data + out->size);
+        printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
+        std::cout << temp << std::endl;
+    }();
+
+    []() -> void {
+        auto buff = "  HELLO,   WORLD!      ";
+        auto in = skx_make_shared(create_data((const byte_t*)buff, strlen(buff)), false);
+
+        auto out = skx_make_shared(toKebabCase((const char*)in->data, in->size));
+
+        auto temp = std::string(out->data, out->data + out->size);
+        printf("size: %zu %zu\n", strlen((const char*)out->data), out->size);
+        std::cout << temp << std::endl;
+    }();
+
     return EXIT_SUCCESS;
 }

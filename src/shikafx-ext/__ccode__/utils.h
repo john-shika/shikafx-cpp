@@ -9,9 +9,6 @@ extern "C" {
 #include <stdio.h>
 #include <stdlib.h>
 #include "./common.h"
-#include "./utils/quicksort.h"
-#include "./utils/mergesort.h"
-#include "./utils/sort.h"
 
 char* copy_char_stack_func(const char* buff, size_t size);
 
@@ -24,6 +21,11 @@ byte_t* copy_byte_stack_func(const byte_t* buff, size_t size);
 byte_t* copy_byte_stack_wnt_func(const byte_t* buff, size_t size);
 
 void panic(const char* message);
+
+// extra files
+#include "./utils/quicksort.h"
+#include "./utils/mergesort.h"
+#include "./utils/sort.h"
 
 #ifdef __cplusplus
 }

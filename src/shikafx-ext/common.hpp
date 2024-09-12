@@ -11,6 +11,8 @@
 #define skx_max32 skfx_com_mod::max_int
 #define skx_max64 skfx_com_mod::max_size_t
 
+#define skx_make_shared_from_raw_ptr skfx_com_mod::make_shared_from_raw_ptr
+
 namespace skfx_com_mod {
 
     auto min_int(int value) -> int;

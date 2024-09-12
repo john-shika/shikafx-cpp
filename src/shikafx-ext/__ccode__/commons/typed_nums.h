@@ -1,5 +1,5 @@
-#ifndef C_SHIKAFX_EXTRAS_TYPED_NUMS
-#define C_SHIKAFX_EXTRAS_TYPED_NUMS
+#ifndef C_SHIKAFX_EXTRAS_COMMON_TYPED_NUMS
+#define C_SHIKAFX_EXTRAS_COMMON_TYPED_NUMS
 
 #ifdef __cplusplus
 extern "C" {
@@ -77,4 +77,4 @@ void skx_typed_nums__swap(typed_nums_t* a, typed_nums_t* b);
 }
 #endif // __cplusplus
 
-#endif // C_SHIKAFX_EXTRAS_TYPED_NUMS
+#endif // C_SHIKAFX_EXTRAS_COMMON_TYPED_NUMS
