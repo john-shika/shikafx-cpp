@@ -1,6 +1,6 @@
 #include "./common.h"
 
-bool ascii_isAlphaNum(const byte_t chr) {
+bool Ansi_isAlphaNum(const byte_t chr) {
     const char* chars = ASCII_ALPHANUM;
     int size_chars = ASCII_ALPHANUM_SIZE;
     for (int i = 0; i < size_chars; i++) {
@@ -9,7 +9,7 @@ bool ascii_isAlphaNum(const byte_t chr) {
     return false;
 }
 
-bool ascii_isDrawable(byte_t chr) {
+bool Ansi_isDrawable(const byte_t chr) {
     const char* chars = ASCII_DRAWABLE;
     int size_chars = ASCII_DRAWABLE_SIZE;
     for (int i = 0; i < size_chars; i++) {
@@ -18,7 +18,7 @@ bool ascii_isDrawable(byte_t chr) {
     return false;
 }
 
-bool ascii_isPrintable(byte_t chr) {
+bool Ansi_isPrintable(const byte_t chr) {
     const char* chars = ASCII_DRAWABLE;
     int size_chars = ASCII_DRAWABLE_SIZE;
     for (int i = 0; i < size_chars; i++) {
@@ -71,7 +71,7 @@ void drop_byte_stack(const byte_t* data) {
     ptr = NULL;
 }
 
-data_t* create_data(const byte_t* data, const size_t size) {
+const data_t* create_data(const byte_t* data, const size_t size) {
 #ifdef DEBUG
     printf("[CC] create memory allocator for <data_t> pointer\n");
 #endif
@@ -97,20 +97,31 @@ void drop_data(const data_t* data, const bool drop_field) {
     ptr = NULL;
 }
 
-bool isEmptySpaceOrNull(const byte_t chr) {
-    if (chr == 0 || chr == 32) return true;
-    return false;
+const data_t* data_slice(const data_t* data, size_t size) {
+    if (data->size < size) {
+        panic("memory overflow, size %zu is larger than available data size %zu.\n", size, data->size);
+        return NULL;
+    }
+    byte_t* temp = create_byte_stack(size);
+    memcpy(temp, data->data, size);
+    return create_data(temp, size);
+}
+
+bool data_cmp(const data_t* data, const data_t* other) {
+    if (data->size != other->size) return false;
+    return memcmp(data->data, other->data, data->size) == 0;
 }
 
 bool isEmptySpace(const byte_t chr) {
+    // TODO: using unicode wide char instead using this method
+    // this method strict in traditional ASCII word
+    
     // TAB 9
     // SPACE 32
     // LF 10
     // CRLF 13, 10
     // NBSP 160 (Unicode) 11 12 (UTF-8)
 
-    // TODO: using unicode wide char instead using this method
-    // this method strict in traditional ASCII word
     switch (chr) {
         case 9:
         case 10:
@@ -122,6 +133,11 @@ bool isEmptySpace(const byte_t chr) {
         default:
             return false;
     }
+}
+
+bool isEmptySpaceOrNull(const byte_t chr) {
+    if (!isEmptySpace(chr) && chr != 0) return false;
+    return true;
 }
 
 bool isLower(const byte_t chr) {
@@ -179,8 +195,7 @@ size_t toTrimStartCalcSize(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < size; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (!isEmptySpace(chr)) break;
+        if (!isEmptySpaceOrNull(chr)) break;
         j += 1;
     }
 
@@ -195,8 +210,7 @@ const data_t* toTrimStart(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < size; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr) && trimStart) continue;
+        if (isEmptySpaceOrNull(chr) && trimStart) continue;
         trimStart = false;
         temp[j] = chr;
         j += 1;
@@ -212,8 +226,7 @@ size_t toTrimEndCalcSize(const char* value, const size_t size) {
     for (size_t k = 0; k < size; k++) {
         size_t x = size - k - 1;
         char chr = value[x];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (!isEmptySpace(chr)) break;
+        if (!isEmptySpaceOrNull(chr)) break;
         j += 1;
     }
 
@@ -230,8 +243,7 @@ const data_t* toTrimEnd(const char* value, const size_t size) {
         if (m <= j) panic("var `j` is out of bound string");
         size_t x = size - k - 1;
         char chr = value[x];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr) && trimEnd) continue;
+        if (isEmptySpaceOrNull(chr) && trimEnd) continue;
         trimEnd = false;
         size_t y = m - j - 1;
         temp[y] = chr;
@@ -249,8 +261,7 @@ size_t toTrimCalcSize(const char* value, const size_t size) {
     for (size_t k = 0; k < size; k++) {
         size_t x = size - k - 1;
         char chr = value[x];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (!isEmptySpace(chr)) break;
+        if (!isEmptySpaceOrNull(chr)) break;
         j += 1;
     }
 
@@ -261,8 +272,7 @@ size_t toTrimCalcSize(const char* value, const size_t size) {
     j = 0;
     for (size_t i = 0; i < n; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (!isEmptySpace(chr)) break;
+        if (!isEmptySpaceOrNull(chr)) break;
         j += 1;
     }
 
@@ -279,8 +289,7 @@ const data_t* toTrim(const char* value, const size_t size) {
     for (size_t i = 0; i < size; i++) {
         if (m <= j) break;
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr) && trimStart) continue;
+        if (isEmptySpaceOrNull(chr) && trimStart) continue;
         trimStart = false;
         temp[j] = chr;
         j += 1;
@@ -295,8 +304,7 @@ size_t toTitleCaseCalcSize(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < size; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr)) {
+        if (isEmptySpaceOrNull(chr)) {
             if (skipped) continue;
             skipped = true;
             j += 1;
@@ -323,12 +331,11 @@ const data_t* toTitleCase(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < len; i++) {
         char chr = buff[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr)) {
+        if (isEmptySpaceOrNull(chr)) {
             if (skipped) continue;
             skipped = true;
             capitalized = true;
-            temp[j] = chr;
+            temp[j] = 32;
             j += 1;
             continue;
         }
@@ -347,8 +354,7 @@ size_t toCamelCaseCalcSize(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < size; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr) || !ascii_isAlphaNum(chr)) continue;
+        if (isEmptySpaceOrNull(chr) || !Ansi_isAlphaNum(chr)) continue;
         j += 1;
     }
 
@@ -364,14 +370,13 @@ const data_t* toCamelCase(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < size; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr)) {
+        if (isEmptySpaceOrNull(chr)) {
             if (trimStart) continue;
             capitalized = true;
             continue;
         }
         trimStart = false;
-        if (!ascii_isAlphaNum(chr)) continue;
+        if (!Ansi_isAlphaNum(chr)) continue;
         chr = toCapitalized(chr, capitalized);
         capitalized = false;
         temp[j] = chr;
@@ -389,12 +394,11 @@ const data_t* toUpperCamelCase(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < size; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr)) {
+        if (isEmptySpaceOrNull(chr)) {
             capitalized = true;
             continue;
         }
-        if (!ascii_isAlphaNum(chr)) continue;
+        if (!Ansi_isAlphaNum(chr)) continue;
         chr = toCapitalized(chr, capitalized);
         capitalized = false;
         temp[j] = chr;
@@ -410,14 +414,13 @@ size_t toSnakeCaseCalcSize(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < size; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr) || chr == 95) {
+        if (isEmptySpaceOrNull(chr) || chr == 95) {
             if (skipped) continue;
             skipped = true;
             j += 1;
             continue;
         }
-        if (!ascii_isAlphaNum(chr)) continue;
+        if (!Ansi_isAlphaNum(chr)) continue;
         skipped = false;
         j += 1;
     }
@@ -437,15 +440,14 @@ const data_t* toSnakeCase(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < len; i++) {
         char chr = buff[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr) || chr == 95) {
+        if (isEmptySpaceOrNull(chr) || chr == 95) {
             if (skipped) continue;
             skipped = true;
             temp[j] = 95; // underscore
             j += 1;
             continue;
         }
-        if (!ascii_isAlphaNum(chr)) continue;
+        if (!Ansi_isAlphaNum(chr)) continue;
         skipped = false;
         chr = toLower(chr);
         temp[j] = chr;
@@ -462,14 +464,13 @@ size_t toKebabCaseCalcSize(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < size; i++) {
         char chr = value[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr) || chr == 45) {
+        if (isEmptySpaceOrNull(chr) || chr == 45) {
             if (skipped) continue;
             skipped = true;
             j += 1;
             continue;
         }
-        if (!ascii_isAlphaNum(chr)) continue;
+        if (!Ansi_isAlphaNum(chr)) continue;
         skipped = false;
         j += 1;
     }
@@ -489,15 +490,14 @@ const data_t* toKebabCase(const char* value, const size_t size) {
     size_t j = 0;
     for (size_t i = 0; i < len; i++) {
         char chr = buff[i];
-        if (isEmptySpaceOrNull(chr)) chr = 32;
-        if (isEmptySpace(chr) || chr == 45) {
+        if (isEmptySpaceOrNull(chr) || chr == 45) {
             if (skipped) continue;
             skipped = true;
             temp[j] = 45; // hyphens
             j += 1;
             continue;
         }
-        if (!ascii_isAlphaNum(chr)) continue;
+        if (!Ansi_isAlphaNum(chr)) continue;
         skipped = false;
         chr = toLower(chr);
         temp[j] = chr;

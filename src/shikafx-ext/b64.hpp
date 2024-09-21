@@ -24,9 +24,9 @@ namespace skfx_b64_mod {
     public:
         Encoder() = default;
 
-        static auto encode(const byte_t* buff, size_t size, bool padding = true) -> data_t*;
-        static auto encode(const data_t* data, bool padding = true) -> data_t*;
-        static auto encode(const std::string& val, bool padding = true) -> data_t*;
+        static auto encode(const byte_t* buff, size_t size, bool padding = true) -> const data_t*;
+        static auto encode(const data_t* data, bool padding = true) -> const data_t*;
+        static auto encode(const std::string& val, bool padding = true) -> const data_t*;
 
     };
 
@@ -34,9 +34,9 @@ namespace skfx_b64_mod {
     public:
         Decoder() = default;
 
-        static auto decode(const std::string& val) -> data_t*;
-        static auto decode(const data_t* data) -> data_t*;
-        static auto decode(const char* val, size_t size) -> data_t*;
+        static auto decode(const std::string& val) -> const data_t*;
+        static auto decode(const data_t* data) -> const data_t*;
+        static auto decode(const char* val, size_t size) -> const data_t*;
     };
 }
 

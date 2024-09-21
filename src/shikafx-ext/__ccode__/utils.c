@@ -36,11 +36,6 @@ byte_t* copy_byte_stack_wnt_func(const byte_t* buff, const size_t size) {
     return temp;
 }
 
-void panic(const char* message) {
-    fprintf(stderr, "Panic: %s\n", message);
-    abort();
-}
-
 // extra files
 #include "./utils/quicksort.c"
 #include "./utils/mergesort.c"

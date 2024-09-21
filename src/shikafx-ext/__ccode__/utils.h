@@ -20,8 +20,6 @@ byte_t* copy_byte_stack_func(const byte_t* buff, size_t size);
 //wnt: with null terminate
 byte_t* copy_byte_stack_wnt_func(const byte_t* buff, size_t size);
 
-void panic(const char* message);
-
 // extra files
 #include "./utils/quicksort.h"
 #include "./utils/mergesort.h"

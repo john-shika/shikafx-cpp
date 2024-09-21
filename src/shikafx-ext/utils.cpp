@@ -29,7 +29,7 @@ auto skx_copy_str_to_chars(const std::string& val) -> char* {
     return temp;
 }
 
-auto skx_copy_str_to_data(const std::string& val) -> data_t* {
+auto skx_copy_str_to_data(const std::string& val) -> const data_t* {
     auto buff  = skx_copy_str_to_bytes(val);
     auto temp = create_data(buff, val.size());
     return temp;
@@ -89,7 +89,7 @@ auto skx_hexdump_view(const byte_t* data, size_t size, int cols) -> void {
         //drawable
         for (size_t m = i; m < k; m++) {
             auto val = data[m];
-            if (!ascii_isDrawable(val)) {
+            if (!Ansi_isDrawable(val)) {
                 std::cout << ".";
                 continue;
             }

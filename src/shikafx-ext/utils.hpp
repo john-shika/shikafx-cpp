@@ -29,7 +29,7 @@ namespace skfx_ext_mod {
     auto cast_str_to_data(const std::string& val) -> const data_t*;
     auto copy_str_to_bytes(const std::string& val) -> byte_t*;
     auto copy_str_to_chars(const std::string& val) -> char*;
-    auto copy_str_to_data(const std::string& val) -> data_t*;
+    auto copy_str_to_data(const std::string& val) -> const data_t*;
     auto cast_data_to_bytes(const data_t* data) -> const byte_t*;
     auto copy_data_to_bytes(const data_t* data) -> byte_t*;
     auto copy_data_to_chars(const data_t* data) -> char*;

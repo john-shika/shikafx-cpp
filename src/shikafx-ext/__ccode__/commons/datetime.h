@@ -5,58 +5,65 @@
 extern "C" {
 #endif // __cplusplus
 
-typedef int64_t Timestamp_Ms_t;
+typedef int64_t timestamp_Ms_t;
 
 // date
-typedef int Duration_y_t;
-typedef int Duration_m_t;
-typedef int Duration_d_t;
+typedef int duration_y_t;
+typedef int duration_m_t;
+typedef int duration_d_t;
 
 // time
-typedef int Duration_H_t;
-typedef int Duration_M_t;
-typedef int Duration_S_t;
+typedef int duration_H_t;
+typedef int duration_M_t;
+typedef int duration_S_t;
 
 // watch
-typedef int Duration_Ms_t;
-typedef int Duration_Us_t;
-typedef int Duration_Ns_t;
+typedef int duration_Ms_t;
+typedef int duration_Us_t;
+typedef int duration_Ns_t;
 
-static const Duration_y_t MONTHS_IN_YEAR = 12;
-static const Duration_d_t DAYS_IN_YEAR = 365;
-static const Duration_d_t DAYS_IN_LEAP_YEAR = 366;
-static const Duration_d_t DAYS_IN_WEEK = 7;
+static const duration_y_t MONTHS_IN_YEAR = 12;
+static const duration_d_t DAYS_IN_YEAR = 365;
+static const duration_d_t DAYS_IN_LEAP_YEAR = 366;
+static const duration_d_t DAYS_IN_WEEK = 7;
 
 // time
-static const Duration_H_t HOURS_IN_DAY = 24;
-static const Duration_M_t MINUTES_IN_HOUR = 60;
-static const Duration_S_t SECONDS_IN_MINUTE = 60;
+static const duration_H_t HOURS_IN_DAY = 24;
+static const duration_M_t MINUTES_IN_HOUR = 60;
+static const duration_S_t SECONDS_IN_MINUTE = 60;
 
 // watch
-static const Duration_Ms_t MILLISECONDS_IN_SECOND = 1000;
-static const Duration_Us_t MICROSECONDS_IN_MILLISECOND = 1000;
-static const Duration_Ns_t NANOSECONDS_IN_MICROSECOND = 1000;
+static const duration_Ms_t MILLISECONDS_IN_SECOND = 1000;
+static const duration_Us_t MICROSECONDS_IN_MILLISECOND = 1000;
+static const duration_Ns_t NANOSECONDS_IN_MICROSECOND = 1000;
 
 typedef enum {
     UTC,
     Local
-} TimeZone_k;
+} TimeZoneKind;
 
 typedef enum {
-    Monday = 0,
+    Monday = 0, // index
     Tuesday,
     Wednesday,
     Thursday,
     Friday,
     Saturday,
     Sunday,
-} Weekdays_k;
+} WeekdayKind;
 
-Weekdays_k Weekdays_parse(const char* name);
-const char* Weekdays_toString(Weekdays_k weekdaysKind);
+static const char* weekdayNames[7] = {
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+    "Sunday",
+};
 
 typedef enum {
-    January = 1,
+    January = 1, // position
     February,
     March,
     April,
@@ -68,36 +75,66 @@ typedef enum {
     October,
     November,
     December,
-} Months_k;
+} MonthKind;
 
-Months_k Months_parse(const char* name);
-const char* Months_toString(Months_k monthsKind);
-
-typedef struct {
-    Duration_y_t years;
-    Duration_m_t months;
-    Duration_d_t days;
-    Duration_H_t hours;
-    Duration_M_t minutes;
-    Duration_S_t seconds;
-    Duration_Ms_t milliseconds;
-    Duration_Us_t microseconds;
-    Duration_Ns_t nanoseconds;
-} Timedelta_t;
-
-typedef struct {
-    Timedelta_t m_timedelta;
-    TimeZone_k m_timezone;
-    Timestamp_Ms_t m_timestamp;
-    Duration_Ms_t m_microseconds;
-    Duration_Ns_t m_nanoseconds;
-    Weekdays_k m_weekdays;
-} DateTimePreload_t;
+static const char* monthNames[12] = {
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+};
 
 typedef struct {
-    DateTimePreload_t m_dateTimeCache;
-    Timedelta_t m_timedelta;
-} DateTime_t;
+    duration_y_t years;
+    duration_m_t months;
+    duration_d_t days;
+    duration_H_t hours;
+    duration_M_t minutes;
+    duration_S_t seconds;
+    duration_Ms_t milliseconds;
+    duration_Us_t microseconds;
+    duration_Ns_t nanoseconds;
+} timedelta_t;
+
+typedef struct {
+    timedelta_t timedelta;
+    TimeZoneKind timezone;
+    timestamp_Ms_t timestamp;
+    duration_Ms_t microseconds;
+    duration_Ns_t nanoseconds;
+    WeekdayKind weekdays;
+} dateTimeCache_t;
+
+typedef struct {
+    dateTimeCache_t dateTimeCache;
+    timedelta_t timedelta;
+} datetime_t;
+
+int WeekdayKind_toInt(WeekdayKind weekdays);
+WeekdayKind WeekdayKind_parseInt(int weekdays);
+
+WeekdayKind WeekdayKind_next(WeekdayKind weekdays);
+WeekdayKind WeekdayKind_prev(WeekdayKind weekdays);
+
+const data_t* WeekdayKind_toString(WeekdayKind weekdays);
+WeekdayKind WeekdayKind_parse(data_t* data);
+
+int MonthKind_toInt(MonthKind months);
+MonthKind MonthKind_parseInt(int months);
+
+MonthKind MonthKind_next(MonthKind months);
+MonthKind MonthKind_prev(MonthKind months);
+
+const data_t* MonthKind_toString(MonthKind months);
+MonthKind MonthKind_parse(data_t* data);
 
 #ifdef __cplusplus
 }

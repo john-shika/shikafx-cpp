@@ -142,8 +142,7 @@ base64_data_t* base64_encode_func(const data_t* data) {
 
     int pads = ov / 2;
     if (pads != base64_calc_size->pads) {
-        printf("base64_encode: pads = %d pads = %d\n", base64_calc_size->pads, pads);
-        panic("mismatch with calc size!");
+        panic("mismatch with calc size, base64_encode: pads = %d pads = %d", base64_calc_size->pads, pads);
     }
 
     //free up memory allocator
@@ -152,7 +151,7 @@ base64_data_t* base64_encode_func(const data_t* data) {
     return create_base64_data(temp, n, pads);
 }
 
-data_t* base64_decode_func(const base64_data_t* data) {
+const data_t* base64_decode_func(const base64_data_t* data) {
     const size_t size = data->size;
     //char* data = (char*)malloc(sizeof(char) * size);
     //memcpy(data, base64_data_raw->data, size);
@@ -216,8 +215,7 @@ data_t* base64_decode_func(const base64_data_t* data) {
 
     int pads = ov / 2;
     if (pads != base64_calc_size->pads) {
-        printf("base64_decode: pads = %d pads = %d\n", base64_calc_size->pads, pads);
-        panic("mismatch with calc size!");
+        panic("mismatch with calc size, base64_decode: pads = %d pads = %d", base64_calc_size->pads, pads);
     }
 
     //free up memory allocator
@@ -226,7 +224,7 @@ data_t* base64_decode_func(const base64_data_t* data) {
     return create_data(temp, n);
 }
 
-data_t* base64_data_to_ascii_cvt_func(const base64_data_t* data, const bool padding) {
+const data_t* base64_data_to_ascii_cvt_func(const base64_data_t* data, const bool padding) {
     int pads = data->pads;
     if (!padding) pads = 0;
 
@@ -286,19 +284,19 @@ base64_data_t* ascii_to_base64_data_cvt_func(const char* val, const size_t size)
             }
         }
         if (!found) {
-            panic("mismatch with base64 characters!");
+            panic("mismatch with base64 characters");
         }
     }
 
     return create_base64_data(temp, n, pads);
 }
 
-data_t* copy_byte_stack_to_data_func(const byte_t* buff, const size_t size) {
+const data_t* copy_byte_stack_to_data_func(const byte_t* buff, const size_t size) {
 
     return create_data(copy_byte_stack_func(buff, size), size);
 }
 
-data_t* copy_data_func(const data_t* data) {
+const data_t* copy_data_func(const data_t* data) {
 
     return copy_byte_stack_to_data_func(data->data, data->size);
 }

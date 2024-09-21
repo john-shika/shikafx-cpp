@@ -11,6 +11,7 @@ extern "C" {
 #include <stdlib.h>
 #include <memory.h>
 #include <string.h>
+#include "./errno.h"
 
 typedef unsigned char byte_t;
 typedef unsigned int uint_t;
@@ -43,9 +44,9 @@ static const int ASCII_WHITESPACES_SIZE = 6;
 static const char* ASCII_PRINTABLE = "0123456789" "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~" " \t\n\r\x0b\x0c";
 static const int ASCII_PRINTABLE_SIZE = 100;
 
-bool ascii_isAlphaNum(const byte_t chr);
-bool ascii_isDrawable(byte_t chr);
-bool ascii_isPrintable(byte_t chr);
+bool Ansi_isAlphaNum(byte_t chr);
+bool Ansi_isDrawable(byte_t chr);
+bool Ansi_isPrintable(byte_t chr);
 
 char* create_char_stack(size_t size);
 void drop_char_stack(const char* data);
@@ -58,8 +59,11 @@ typedef struct {
     size_t size;
 } data_t;
 
-data_t* create_data(const byte_t* data, size_t size);
+const data_t* create_data(const byte_t* data, size_t size);
 void drop_data(const data_t* data, bool drop_field);
+
+const data_t* data_slice(const data_t* data, size_t size);
+bool data_cmp(const data_t* data, const data_t* other);
 
 bool isEmptySpaceOrNull(byte_t chr);
 bool isEmptySpace(const byte_t chr);
