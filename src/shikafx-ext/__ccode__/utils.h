@@ -10,15 +10,16 @@ extern "C" {
 #include <stdlib.h>
 #include "./common.h"
 
-char* copy_char_stack_func(const char* buff, size_t size);
+// TLDR: wnt with meaning of `with null terminate`
 
-//wnt: with null terminate
+char* copy_char_stack_func(const char* buff, size_t size);
 char* copy_char_stack_wnt_func(const char* buff, size_t size);
 
 byte_t* copy_byte_stack_func(const byte_t* buff, size_t size);
-
-//wnt: with null terminate
 byte_t* copy_byte_stack_wnt_func(const byte_t* buff, size_t size);
+
+const data_t* copy_byte_stack_to_data_func(const byte_t* buff, size_t size);
+const data_t* copy_data_func(const data_t* data);
 
 // extra files
 #include "./utils/quicksort.h"

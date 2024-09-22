@@ -20,29 +20,23 @@ typedef unsigned int uint_t;
 //typedef long long int int64_t;
 //typedef unsigned long long int uint64_t;
 
-static const char* ASCII_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+static const char* ASCII_UPPERCASE;
+static const char* ASCII_LOWERCASE;
+static const char* DIGITS;
+static const char* ASCII_PUNCTUATION;
+static const char* ASCII_ALPHANUM;
+static const char* ASCII_DRAWABLE;
+static const char* ASCII_PRINTABLE;
+static const char* ASCII_WHITESPACES;
+
 static const int ASCII_UPPERCASE_SIZE = 26;
-
-static const char* ASCII_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
 static const int ASCII_LOWERCASE_SIZE = 26;
-
-static const char* DIGITS = "0123456789";
 static const int DIGITS_SIZE = 10;
-
-static const char* ASCII_PUNCTUATION = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
 static const int ASCII_PUNCTUATION_SIZE = 32;
-
-static const char* ASCII_ALPHANUM = "0123456789" "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 static const int ASCII_ALPHANUM_SIZE = 62;
-
-static const char* ASCII_DRAWABLE = "0123456789" "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
 static const int ASCII_DRAWABLE_SIZE = 94;
-
-static const char* ASCII_WHITESPACES = " \t\n\r\x0b\x0c";
-static const int ASCII_WHITESPACES_SIZE = 6;
-
-static const char* ASCII_PRINTABLE = "0123456789" "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~" " \t\n\r\x0b\x0c";
 static const int ASCII_PRINTABLE_SIZE = 100;
+static const int ASCII_WHITESPACES_SIZE = 6;
 
 bool Ansi_isAlphaNum(byte_t chr);
 bool Ansi_isDrawable(byte_t chr);
@@ -63,7 +57,11 @@ const data_t* create_data(const byte_t* data, size_t size);
 void drop_data(const data_t* data, bool drop_field);
 
 const data_t* data_slice(const data_t* data, size_t size);
-bool data_cmp(const data_t* data, const data_t* other);
+const data_t* data_pack(const char* data, size_t size);
+const data_t* data_copy(const data_t* data);
+
+int data_cmp(const data_t* data, const data_t* other);
+bool data_eq(const data_t* data, const data_t* other);
 
 bool isEmptySpaceOrNull(byte_t chr);
 bool isEmptySpace(const byte_t chr);
@@ -87,6 +85,9 @@ const data_t* toTrimEnd(const char* value, size_t size);
 
 size_t toTrimCalcSize(const char* value, size_t size);
 const data_t* toTrim(const char* value, size_t size);
+
+const data_t* trimToLowerCase(const char* value, size_t size);
+const data_t* trimToUpperCase(const char* value, size_t size);
 
 size_t toTitleCaseCalcSize(const char* value, size_t size);
 const data_t* toTitleCase(const char* value, size_t size);
@@ -113,6 +114,9 @@ const data_t* data_toCamelCase(const data_t* data);
 const data_t* data_toUpperCamelCase(const data_t* data);
 const data_t* data_toSnakeCase(const data_t* data);
 const data_t* data_toKebabCase(const data_t* data);
+
+const data_t* data_trimToLowerCase(const data_t* data);
+const data_t* data_trimToUpperCase(const data_t* data);
 
 // ============ data ============ //
 

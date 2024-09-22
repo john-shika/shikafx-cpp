@@ -14,7 +14,7 @@ namespace skfx_ext_mod {
     auto copy_str(const std::string& val) -> std::string;
 
     // copy without null terminate
-    auto copy_str_to_bytes(const std::string& val) -> byte_t*;
+    auto copy_str_to_byte_stack(const std::string& val) -> byte_t*;
 
     auto copy_str_to_char_stack_wnt(const std::string& val) -> char*;
     auto copy_str_to_byte_stack_wnt(const std::string& val) -> byte_t*;

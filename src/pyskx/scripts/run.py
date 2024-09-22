@@ -17,7 +17,7 @@ def main():
     if not IS_WIN32:
         os.environ.setdefault("LD_LIBRARY_PATH", ":".join((os.path.join(CURRENT_WORKDIR, "../libs/linux"), os.environ.get("LD_LIBRARY_PATH", ""))))
 
-    with subprocess.Popen(COMMANDS, env=os.environ, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False) as pipe:
+    with subprocess.Popen(COMMANDS, env=os.environ, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE) as pipe:
 
         stdout, stderr = pipe.communicate()
         pipe.wait()

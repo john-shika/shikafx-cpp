@@ -25,24 +25,24 @@ typedef union {
 } num_t;
 
 typedef enum {
-    BOOL,
-    CHAR,
-    UCHAR,
-    SHORT,
-    USHORT,
-    INT,
-    UINT,
-    LONG,
-    ULONG,
-    LLONG,
-    ULLONG,
-    FLOAT,
-    DOUBLE,
-    LDOUBLE
-} num_kind;
+    NumKind_BOOL,
+    NumKind_CHAR,
+    NumKind_UCHAR,
+    NumKind_SHORT,
+    NumKind_USHORT,
+    NumKind_INT,
+    NumKind_UINT,
+    NumKind_LONG,
+    NumKind_ULONG,
+    NumKind_LLONG,
+    NumKind_ULLONG,
+    NumKind_FLOAT,
+    NumKind_DOUBLE,
+    NumKind_LDOUBLE
+} NumKind;
 
 typedef struct {
-    num_kind kind;
+    NumKind kind;
     num_t value;
 } typed_num_t;
 

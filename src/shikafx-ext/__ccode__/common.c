@@ -1,6 +1,15 @@
 #include "./common.h"
 
-bool Ansi_isAlphaNum(const byte_t chr) {
+static const char* ASCII_UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+static const char* ASCII_LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+static const char* DIGITS = "0123456789";
+static const char* ASCII_PUNCTUATION = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
+static const char* ASCII_ALPHANUM = "0123456789" "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+static const char* ASCII_DRAWABLE = "0123456789" "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~";
+static const char* ASCII_PRINTABLE = "0123456789" "abcdefghijklmnopqrstuvwxyz" "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~" " \t\n\r\x0b\x0c";
+static const char* ASCII_WHITESPACES = " \t\n\r\x0b\x0c";
+
+bool Ansi_isAlphaNum(byte_t chr) {
     const char* chars = ASCII_ALPHANUM;
     int size_chars = ASCII_ALPHANUM_SIZE;
     for (int i = 0; i < size_chars; i++) {
@@ -9,7 +18,7 @@ bool Ansi_isAlphaNum(const byte_t chr) {
     return false;
 }
 
-bool Ansi_isDrawable(const byte_t chr) {
+bool Ansi_isDrawable(byte_t chr) {
     const char* chars = ASCII_DRAWABLE;
     int size_chars = ASCII_DRAWABLE_SIZE;
     for (int i = 0; i < size_chars; i++) {
@@ -18,7 +27,7 @@ bool Ansi_isDrawable(const byte_t chr) {
     return false;
 }
 
-bool Ansi_isPrintable(const byte_t chr) {
+bool Ansi_isPrintable(byte_t chr) {
     const char* chars = ASCII_DRAWABLE;
     int size_chars = ASCII_DRAWABLE_SIZE;
     for (int i = 0; i < size_chars; i++) {
@@ -107,9 +116,25 @@ const data_t* data_slice(const data_t* data, size_t size) {
     return create_data(temp, size);
 }
 
-bool data_cmp(const data_t* data, const data_t* other) {
+const data_t* data_pack(const char* data, size_t size) {
+    const byte_t* temp = (const byte_t*)data;
+    return create_data(temp, size);
+}
+
+const data_t* data_copy(const data_t* data) {
+    size_t size = data->size;
+    byte_t* temp = create_byte_stack(size);
+    memcpy(temp, data->data, size);
+    return create_data(temp, size);
+}
+
+int data_cmp(const data_t* data, const data_t* other) {
     if (data->size != other->size) return false;
-    return memcmp(data->data, other->data, data->size) == 0;
+    return memcmp(data->data, other->data, data->size);
+}
+
+bool data_eq(const data_t* data, const data_t* other) {
+    return data_cmp(data, other) == 0;
 }
 
 bool isEmptySpace(const byte_t chr) {
@@ -292,6 +317,44 @@ const data_t* toTrim(const char* value, const size_t size) {
         if (isEmptySpaceOrNull(chr) && trimStart) continue;
         trimStart = false;
         temp[j] = chr;
+        j += 1;
+    }
+
+    return create_data(temp, m);
+}
+
+const data_t* trimToLowerCase(const char* value, size_t size) {
+    size_t m = toTrimCalcSize(value, size);
+    byte_t* temp = create_byte_stack(m);
+    bool trimStart = true;
+
+    // trimming
+    size_t j = 0;
+    for (size_t i = 0; i < size; i++) {
+        if (m <= j) break;
+        char chr = value[i];
+        if (isEmptySpaceOrNull(chr) && trimStart) continue;
+        trimStart = false;
+        temp[j] = toLower(chr);
+        j += 1;
+    }
+
+    return create_data(temp, m);
+}
+
+const data_t* trimToUpperCase(const char* value, size_t size) {
+    size_t m = toTrimCalcSize(value, size);
+    byte_t* temp = create_byte_stack(m);
+    bool trimStart = true;
+
+    // trimming
+    size_t j = 0;
+    for (size_t i = 0; i < size; i++) {
+        if (m <= j) break;
+        char chr = value[i];
+        if (isEmptySpaceOrNull(chr) && trimStart) continue;
+        trimStart = false;
+        temp[j] = toUpper(chr);
         j += 1;
     }
 
@@ -550,6 +613,14 @@ const data_t* data_toSnakeCase(const data_t* data) {
 
 const data_t* data_toKebabCase(const data_t* data) {
     return toKebabCase((const char*)data->data, data->size);
+}
+
+const data_t* data_trimToLowerCase(const data_t* data) {
+    return trimToLowerCase((const char *) data->data, data->size);
+}
+
+const data_t* data_trimToUpperCase(const data_t* data) {
+    return trimToUpperCase((const char *) data->data, data->size);
 }
 
 // ============ data ============ //

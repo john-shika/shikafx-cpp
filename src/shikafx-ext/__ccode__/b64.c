@@ -228,7 +228,7 @@ const data_t* base64_data_to_ascii_cvt_func(const base64_data_t* data, const boo
     int pads = data->pads;
     if (!padding) pads = 0;
 
-    const char* chars = BASE64_CHARACTERS;
+    const char* characters = BASE64_CHARACTERS;
     char pad = BASE64_PADDING;
 
     //end str with null
@@ -238,7 +238,7 @@ const data_t* base64_data_to_ascii_cvt_func(const base64_data_t* data, const boo
 
     for (size_t i = 0; i < data->size; i++) {
         char j = data->data[i];
-        temp[i] = chars[j];
+        temp[i] = characters[j];
     }
 
     for (int i = 0; i < pads; i++) {
@@ -256,8 +256,8 @@ base64_data_t* ascii_to_base64_data_cvt_func(const char* val, const size_t size)
     size_t n = size;
 
     int pads = 0;
-    const char* chars = BASE64_CHARACTERS;
-    const char size_chars = BASE64_CHARACTERS_SIZE;
+    const char* characters = BASE64_CHARACTERS;
+    const int characters_size = BASE64_CHARACTERS_SIZE;
     char pad = BASE64_PADDING;
 
     for (uint_t i = 0; i < n; i++) {
@@ -276,8 +276,8 @@ base64_data_t* ascii_to_base64_data_cvt_func(const char* val, const size_t size)
     for (size_t i = 0; i < n; i++) {
         char chr = val[i];
         bool found = false;
-        for (char j = 0; j < size_chars; j++) {
-            if (chars[j] == chr) {
+        for (int j = 0; j < characters_size; j++) {
+            if (characters[j] == chr) {
                 found = true;
                 temp[i] = j;
                 break;
@@ -289,14 +289,4 @@ base64_data_t* ascii_to_base64_data_cvt_func(const char* val, const size_t size)
     }
 
     return create_base64_data(temp, n, pads);
-}
-
-const data_t* copy_byte_stack_to_data_func(const byte_t* buff, const size_t size) {
-
-    return create_data(copy_byte_stack_func(buff, size), size);
-}
-
-const data_t* copy_data_func(const data_t* data) {
-
-    return copy_byte_stack_to_data_func(data->data, data->size);
 }

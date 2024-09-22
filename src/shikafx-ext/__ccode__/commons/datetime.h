@@ -38,59 +38,37 @@ static const duration_Us_t MICROSECONDS_IN_MILLISECOND = 1000;
 static const duration_Ns_t NANOSECONDS_IN_MICROSECOND = 1000;
 
 typedef enum {
-    UTC,
-    Local
+    TimeZoneKind_UTC,
+    TimeZoneKind_Local
 } TimeZoneKind;
 
 typedef enum {
-    Monday = 0, // index
-    Tuesday,
-    Wednesday,
-    Thursday,
-    Friday,
-    Saturday,
-    Sunday,
+    WeekdayKind_Monday = 0, // index
+    WeekdayKind_Tuesday,
+    WeekdayKind_Wednesday,
+    WeekdayKind_Thursday,
+    WeekdayKind_Friday,
+    WeekdayKind_Saturday,
+    WeekdayKind_Sunday,
 } WeekdayKind;
 
-static const char* weekdayNames[7] = {
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-    "Sunday",
-};
-
 typedef enum {
-    January = 1, // position
-    February,
-    March,
-    April,
-    May,
-    June,
-    July,
-    August,
-    September,
-    October,
-    November,
-    December,
+    MonthKind_January = 1, // position
+    MonthKind_February,
+    MonthKind_March,
+    MonthKind_April,
+    MonthKind_May,
+    MonthKind_June,
+    MonthKind_July,
+    MonthKind_August,
+    MonthKind_September,
+    MonthKind_October,
+    MonthKind_November,
+    MonthKind_December,
 } MonthKind;
 
-static const char* monthNames[12] = {
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-};
+static const char* weekdayNames[7];
+static const char* monthNames[12];
 
 typedef struct {
     duration_y_t years;
@@ -102,20 +80,17 @@ typedef struct {
     duration_Ms_t milliseconds;
     duration_Us_t microseconds;
     duration_Ns_t nanoseconds;
+    TimeZoneKind timezone;
 } timedelta_t;
 
 typedef struct {
-    timedelta_t timedelta;
-    TimeZoneKind timezone;
-    timestamp_Ms_t timestamp;
-    duration_Ms_t microseconds;
+    timedelta_t* timedelta;
+    timedelta_t* timedeltaSeed;
+    duration_Us_t microseconds;
     duration_Ns_t nanoseconds;
+    timestamp_Ms_t timestamp;
+    TimeZoneKind timezone;
     WeekdayKind weekdays;
-} dateTimeCache_t;
-
-typedef struct {
-    dateTimeCache_t dateTimeCache;
-    timedelta_t timedelta;
 } datetime_t;
 
 int WeekdayKind_toInt(WeekdayKind weekdays);
@@ -124,7 +99,7 @@ WeekdayKind WeekdayKind_parseInt(int weekdays);
 WeekdayKind WeekdayKind_next(WeekdayKind weekdays);
 WeekdayKind WeekdayKind_prev(WeekdayKind weekdays);
 
-const data_t* WeekdayKind_toString(WeekdayKind weekdays);
+const data_t* WeekdayKind_getName(WeekdayKind weekdays);
 WeekdayKind WeekdayKind_parse(data_t* data);
 
 int MonthKind_toInt(MonthKind months);
@@ -133,8 +108,42 @@ MonthKind MonthKind_parseInt(int months);
 MonthKind MonthKind_next(MonthKind months);
 MonthKind MonthKind_prev(MonthKind months);
 
-const data_t* MonthKind_toString(MonthKind months);
+const data_t* MonthKind_getName(MonthKind months);
 MonthKind MonthKind_parse(data_t* data);
+
+const timedelta_t* create_timedelta(
+    duration_y_t years,
+    duration_m_t months,
+    duration_d_t days,
+    duration_H_t hours,
+    duration_M_t minutes,
+    duration_S_t seconds,
+    duration_Ms_t milliseconds,
+    duration_Us_t microseconds,
+    duration_Ns_t nanoseconds,
+    TimeZoneKind timezone
+);
+
+void drop_timedelta(const timedelta_t* timedelta);
+
+const datetime_t* create_datetime(
+    timedelta_t* timedelta,
+    timedelta_t* timedeltaSeed,
+    duration_Us_t microseconds,
+    duration_Ns_t nanoseconds,
+    timestamp_Ms_t timestamp,
+    TimeZoneKind timezone,
+    WeekdayKind weekdays
+);
+
+void drop_datetime(const datetime_t* datetime);
+
+static const timedelta_t* TIMEDELTA_ZERO_VAL;
+static const timedelta_t* TIMEDELTA_ZERO_UTC;
+static const datetime_t* TIMEDELTA_SEEDS[6];
+
+const timedelta_t* timedelta_copy(const timedelta_t* timedelta);
+const datetime_t* datetime_copy(const datetime_t* datetime);
 
 #ifdef __cplusplus
 }

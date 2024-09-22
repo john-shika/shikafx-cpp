@@ -5,6 +5,13 @@ import sys
 from setuptools import setup, Extension
 from Cython.Build import cythonize
 
+# cmake -G "Ninja" -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ -B build .
+# ninja -C build
+# os.environ["CC"] = "clang"
+# os.environ["CXX"] = "clang++"
+# os.environ["CFLAGS"] = "-O3"
+# os.environ["CXXFLAGS"] = "-O3"
+
 IS_WIN32 = sys.platform == "win32"
 
 NAME = "pyskx"
