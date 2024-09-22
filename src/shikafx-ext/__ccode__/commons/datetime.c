@@ -66,8 +66,7 @@ WeekdayKind WeekdayKind_parse(data_t* data) {
             if (size == name->size) {
                 if (data_eq(temp, name)) {
                     WeekdayKind result = WeekdayKind_parseInt(i);
-                    drop_data(name, true);
-                    drop_data(temp, true);
+                    DROP_DATA_M(name, temp);
                     return result;
                 }
                 drop_data(name, true);
@@ -76,9 +75,7 @@ WeekdayKind WeekdayKind_parse(data_t* data) {
             const data_t* short_name = data_slice(name, size);
             if (data_eq(temp, short_name)) {
                 WeekdayKind result = WeekdayKind_parseInt(i);
-                drop_data(short_name, true);
-                drop_data(name, true);
-                drop_data(temp, true);
+                DROP_DATA_M(short_name, name, temp);
                 return result;
             }
             drop_data(short_name, true);
@@ -131,8 +128,7 @@ MonthKind MonthKind_parse(data_t* data) {
             if (size == name->size) {
                 if (data_eq(temp, name)) {
                     MonthKind result = MonthKind_parseInt(i);
-                    drop_data(name, true);
-                    drop_data(temp, true);
+                    DROP_DATA_M(name, temp);
                     return result;
                 }
                 drop_data(name, true);
@@ -141,9 +137,7 @@ MonthKind MonthKind_parse(data_t* data) {
             const data_t* short_name = data_slice(name, size);
             if (data_eq(temp, short_name)) {
                 MonthKind result = MonthKind_parseInt(i);
-                drop_data(short_name, true);
-                drop_data(name, true);
-                drop_data(temp, true);
+                DROP_DATA_M(short_name, name, temp);
                 return result;
             }
             drop_data(short_name, true);

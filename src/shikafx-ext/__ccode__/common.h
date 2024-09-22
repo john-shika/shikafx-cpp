@@ -56,6 +56,29 @@ typedef struct {
 const data_t* create_data(const byte_t* data, size_t size);
 void drop_data(const data_t* data, bool drop_field);
 
+#define EXPAND(x) x
+#define DROP_DATA_1(a) drop_data(a, true)
+#define DROP_DATA_2(a, b) DROP_DATA_1(a); DROP_DATA_1(b)
+#define DROP_DATA_3(a, b, c) DROP_DATA_2(a, b); DROP_DATA_1(c)
+#define DROP_DATA_4(a, b, c, d) DROP_DATA_3(a, b, c); DROP_DATA_1(d)
+#define DROP_DATA_5(a, b, c, d, e) DROP_DATA_4(a, b, c, d); DROP_DATA_1(e)
+#define DROP_DATA_6(a, b, c, d, e, f) DROP_DATA_5(a, b, c, d, e); DROP_DATA_1(f)
+#define DROP_DATA_7(a, b, c, d, e, f, g) DROP_DATA_6(a, b, c, d, e, f); DROP_DATA_1(g)
+#define DROP_DATA_8(a, b, c, d, e, f, g, h) DROP_DATA_7(a, b, c, d, e, f, g); DROP_DATA_1(h)
+
+#define MOVE_DATA_1(a) drop_data(a, false)
+#define MOVE_DATA_2(a, b) MOVE_DATA_1(a); MOVE_DATA_1(b)
+#define MOVE_DATA_3(a, b, c) MOVE_DATA_2(a, b); MOVE_DATA_1(c)
+#define MOVE_DATA_4(a, b, c, d) MOVE_DATA_3(a, b, c); MOVE_DATA_1(d)
+#define MOVE_DATA_5(a, b, c, d, e) MOVE_DATA_4(a, b, c, d); MOVE_DATA_1(e)
+#define MOVE_DATA_6(a, b, c, d, e, f) MOVE_DATA_5(a, b, c, d, e); MOVE_DATA_1(f)
+#define MOVE_DATA_7(a, b, c, d, e, f, g) MOVE_DATA_6(a, b, c, d, e, f); MOVE_DATA_1(g)
+#define MOVE_DATA_8(a, b, c, d, e, f, g, h) MOVE_DATA_7(a, b, c, d, e, f, g); MOVE_DATA_1(h)
+
+#define GET_MACRO(_1, _2, _3, _4, _5, _6, _7, _8, NAME, ...) NAME
+#define DROP_DATA_M(...) EXPAND(GET_MACRO(__VA_ARGS__, DROP_DATA_8, DROP_DATA_7, DROP_DATA_6, DROP_DATA_5, DROP_DATA_4, DROP_DATA_3, DROP_DATA_2, DROP_DATA_1)(__VA_ARGS__))
+#define MOVE_DATA_M(...) EXPAND(GET_MACRO(__VA_ARGS__, MOVE_DATA_8, MOVE_DATA_7, MOVE_DATA_6, MOVE_DATA_5, MOVE_DATA_4, MOVE_DATA_3, MOVE_DATA_2, MOVE_DATA_1)(__VA_ARGS__))
+
 const data_t* data_slice(const data_t* data, size_t size);
 const data_t* data_pack(const char* data, size_t size);
 const data_t* data_copy(const data_t* data);
@@ -64,7 +87,7 @@ int data_cmp(const data_t* data, const data_t* other);
 bool data_eq(const data_t* data, const data_t* other);
 
 bool isEmptySpaceOrNull(byte_t chr);
-bool isEmptySpace(const byte_t chr);
+bool isEmptySpace(byte_t chr);
 
 bool isLower(byte_t chr);
 bool isUpper(byte_t chr);
@@ -75,12 +98,12 @@ char toUpper(char chr);
 const char* toLowerCase(const char* value, size_t size);
 const char* toUpperCase(const char* value, size_t size);
 
-char toCapitalized(char chr, const bool capitalized);
+char toCapitalized(char chr, bool capitalized);
 
 size_t toTrimStartCalcSize(const char* value, size_t size);
 const data_t* toTrimStart(const char* value, size_t size);
 
-size_t toTrimEndCalcSize(const char* value, const size_t size);
+size_t toTrimEndCalcSize(const char* value, size_t size);
 const data_t* toTrimEnd(const char* value, size_t size);
 
 size_t toTrimCalcSize(const char* value, size_t size);
