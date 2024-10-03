@@ -9,7 +9,7 @@ set(CMAKE_INSTALL_RPATH "")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
-option(USE_DEBUG "Enable debug mode" ON)
+option(USE_DEBUG "Enable debug mode" OFF)
 
 if (USE_DEBUG)
     add_compile_definitions(DEBUG=1)
@@ -17,18 +17,20 @@ endif()
 
 set(LIB_TYPE SHARED)
 
-add_library(c-shikafx-ext ${LIB_TYPE} ../shikafx-ext/__ccode__/preload.c)
-add_library(shikafx-ext ${LIB_TYPE} ../shikafx-ext/preload.cpp)
-add_library(pyskx-ext ${LIB_TYPE} ../pyskx-ext/preload.cpp)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
-target_link_libraries(shikafx-ext PRIVATE c-shikafx-ext)
-target_link_libraries(pyskx-ext PRIVATE c-shikafx-ext)
-target_link_libraries(pyskx-ext PRIVATE shikafx-ext)
+#find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
+#list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules/cmake")
+#include(UseCython)
+#
+#include_directories("${CMAKE_SOURCE_DIR}/includes")
+#find_package(Cython MODULE REQUIRED VERSION 3.0)
+#
+#add_subdirectory(modules/pyskx-ext "${CMAKE_BINARY_DIR}/pyskx-ext")
+#
+#cython_transpile(pyskx.pyx LANGUAGE CXX OUTPUT_VARIABLE pyskx)
+#python3_add_library(pyskx MODULE "${pyskx}")
+#
+#export(TARGETS pyskx FILE pyskx.cmake)
 
-install(TARGETS c-shikafx-ext DESTINATION lib)
-install(TARGETS shikafx-ext DESTINATION lib)
-install(TARGETS pyskx-ext DESTINATION lib)
-
-export(TARGETS c-shikafx-ext FILE c-shikafx-ext.cmake)
-export(TARGETS shikafx-ext FILE shikafx-ext.cmake)
-export(TARGETS pyskx-ext FILE pyskx-ext.cmake)
+add_subdirectory(modules/pyskx-ext "${CMAKE_BINARY_DIR}/pyskx-ext")

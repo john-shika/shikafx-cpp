@@ -21,14 +21,15 @@ cmake --build build-linux --target pyskx-ext --config Release
 #cd ..
 
 suffixes=(
-    "libc-shikafx-ext.so"
-    "libshikafx-ext.so"
-    "libpyskx-ext.so"
+    "lib/libc-shikafx-ext.so"
+    "lib/libshikafx-ext.so"
+    "lib/libpyskx-ext.so"
 )
 
 for suffix in "${suffixes[@]}"; do
     sourcePath="build-linux/$suffix"
-    destinationPath="libs/linux/$suffix"
+    fileName=$(basename "$suffix")
+    destinationPath="libs/linux/$fileName"
 
     if ls "$sourcePath" 2> /dev/null; then
         cp "$sourcePath" "$destinationPath"

@@ -8,6 +8,7 @@ extern "C" {
 //#define DEBUG
 
 #include "./common.h"
+#include "./errno.h"
 #include "./b64.h"
 #include "./utils.h"
 

@@ -13,20 +13,21 @@ cmake --build build-win32 --target pyskx-ext --config Release
 #Set-Location ..
 
 $suffixes = @(
-    "c-shikafx-ext.dll",
-    "c-shikafx-ext.exp",
-    "c-shikafx-ext.lib",
-    "shikafx-ext.dll",
-    "shikafx-ext.exp",
-    "shikafx-ext.lib",
-    "pyskx-ext.dll",
-    "pyskx-ext.exp",
-    "pyskx-ext.lib"
+    "shikafx-ext\Release\c-shikafx-ext.dll",
+    "shikafx-ext\Release\c-shikafx-ext.exp",
+    "shikafx-ext\Release\c-shikafx-ext.lib",
+    "shikafx-ext\Release\shikafx-ext.dll",
+    "shikafx-ext\Release\shikafx-ext.exp",
+    "shikafx-ext\Release\shikafx-ext.lib",
+    "pyskx-ext\Release\pyskx-ext.dll",
+    "pyskx-ext\Release\pyskx-ext.exp",
+    "pyskx-ext\Release\pyskx-ext.lib"
 )
 
 foreach ($suffix in $suffixes) {
-    $sourcePath = "build-win32\Release\$suffix"
-    $destinationPath = "libs\win32\$suffix"
+    $sourcePath = "build-win32\$suffix"
+    $fileName = Split-Path -Path $suffix -Leaf
+    $destinationPath = "libs\win32\$fileName"
 
     if (Test-Path -Path $sourcePath) {
         Copy-Item -Path $sourcePath -Destination $destinationPath

@@ -45,13 +45,13 @@ def main():
     os.chdir(os.path.join(CURRENT_WORKDIR, ".."))
 
     print("Copying Header files")
-    copy_fs("src/pyskx-ext", "include/pyskx-ext")
-    copy_fs("src/shikafx-ext", "include/shikafx-ext")
-    copy_fs("src/shikafx-ext/commons", "include/shikafx-ext/commons")
-    copy_fs("src/shikafx-ext/utils", "include/shikafx-ext/utils")
-    copy_fs("src/shikafx-ext/__ccode__", "include/shikafx-ext/__ccode__")
-    copy_fs("src/shikafx-ext/__ccode__/commons", "include/shikafx-ext/__ccode__/commons")
-    copy_fs("src/shikafx-ext/__ccode__/utils", "include/shikafx-ext/__ccode__/utils")
+    copy_fs("src/pyskx-ext", "includes/pyskx-ext")
+    copy_fs("src/shikafx-ext", "includes/shikafx-ext")
+    copy_fs("src/shikafx-ext/commons", "includes/shikafx-ext/commons")
+    copy_fs("src/shikafx-ext/utils", "includes/shikafx-ext/utils")
+    copy_fs("src/shikafx-ext/__ccode__", "includes/shikafx-ext/__ccode__")
+    copy_fs("src/shikafx-ext/__ccode__/commons", "includes/shikafx-ext/__ccode__/commons")
+    copy_fs("src/shikafx-ext/__ccode__/utils", "includes/shikafx-ext/__ccode__/utils")
 
     print("Copying Header files is complete!")
     return

@@ -1,6 +1,6 @@
 #!cython
 # cython: language_level=3
-cdef extern from "../pyskx-ext/preload.hpp":
+cdef extern from "pyskx-ext/preload.hpp":
     ctypedef struct data_t:
         const unsigned char* data
         size_t size
@@ -37,6 +37,6 @@ def py_base64_decode(str data) -> bytearray:
     cdef bytes buff = data.encode("utf-8")
     cdef size_t size = len(buff)
     cdef const data_t* out = cpp_base64_decode(buff, size)
-    temp = cast_data_to_byte_stack(out)
+    temp = cast_data_to_bytes(out)
     cpp_drop_data(out, 0)
     return temp
