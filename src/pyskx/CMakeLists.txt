@@ -9,6 +9,10 @@ set(CMAKE_INSTALL_RPATH "")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-mlong-double-128)
+endif()
+
 option(USE_DEBUG "Enable debug mode" OFF)
 
 if (USE_DEBUG)
@@ -19,6 +23,8 @@ set(LIB_TYPE SHARED)
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
+#-- Work in Linux Only --
+#
 #find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
 #list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/modules/cmake")
 #include(UseCython)
@@ -29,7 +35,9 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 #add_subdirectory(modules/pyskx-ext "${CMAKE_BINARY_DIR}/pyskx-ext")
 #
 #cython_transpile(pyskx.pyx LANGUAGE CXX OUTPUT_VARIABLE pyskx)
-#python3_add_library(pyskx MODULE "${pyskx}")
+#python3_add_library(pyskx MODULE "${pyskx}" WITH_SOABI)
+#
+#target_link_libraries(pyskx PRIVATE pyskx-ext shikafx-ext)
 #
 #export(TARGETS pyskx FILE pyskx.cmake)
 

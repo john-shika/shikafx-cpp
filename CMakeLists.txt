@@ -9,6 +9,10 @@ set(CMAKE_INSTALL_RPATH "")
 set(CMAKE_INSTALL_RPATH_USE_LINK_PATH OFF)
 set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
 
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-mlong-double-128)
+endif()
+
 option(USE_DEBUG "Enable debug mode" OFF)
 
 if (USE_DEBUG)
@@ -46,3 +50,7 @@ install(TARGETS c-shikafx-ext DESTINATION lib)
 
 export(TARGETS shikafx-ext FILE shikafx-ext.cmake)
 export(TARGETS c-shikafx-ext FILE c-shikafx-ext.cmake)
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+    add_compile_options(-fabi-version=4.4 -mlong-double-128)
+endif()
