@@ -45,7 +45,7 @@ def main():
     os.chdir(os.path.join(CURRENT_WORKDIR, ".."))
 
     print("Copying Header files")
-    copy_fs("src/pyskx-ext", "includes/pyskx-ext")
+    copy_fs("src/shikafx-drv", "includes/shikafx-drv")
     copy_fs("src/shikafx-ext", "includes/shikafx-ext")
     copy_fs("src/shikafx-ext/commons", "includes/shikafx-ext/commons")
     copy_fs("src/shikafx-ext/utils", "includes/shikafx-ext/utils")

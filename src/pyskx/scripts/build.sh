@@ -4,11 +4,10 @@ chdir-err() {
   echo "failed change directory!" && exit 1
 }
 
-SCRIPT_DIR="$(dirname "$0")"
-cd "$SCRIPT_DIR" || chdir-err
+currentWorkDir="$(dirname "$0")"
+cd "$currentWorkDir" || chdir-err
 cd ..
 
-PWD="$(pwd)"
 export CXX=/usr/bin/clang++
 export CC=/usr/bin/clang
 
@@ -17,13 +16,13 @@ mkdir -p build-linux libs/linux
 #cd build-linux || chdir-err
 
 cmake -G Ninja -S . -B build-linux
-cmake --build build-linux --target pyskx-ext --config Release
+cmake --build build-linux --target shikafx-drv --config Release
 #cd ..
 
 suffixes=(
     "lib/libc-shikafx-ext.so"
     "lib/libshikafx-ext.so"
-    "lib/libpyskx-ext.so"
+    "lib/libshikafx-drv.so"
 )
 
 for suffix in "${suffixes[@]}"; do

@@ -1,14 +1,14 @@
 #!cython
 # cython: language_level=3
-cdef extern from "pyskx-ext/preload.hpp":
+cdef extern from "shikafx-drv/preload.hpp":
     ctypedef struct data_t:
         const unsigned char* data
         size_t size
 
-    void cpp_hexdump_view(const char* data, size_t size, int cols)
-    const data_t* cpp_base64_encode(const char* data, size_t size, bint padding)
-    const data_t* cpp_base64_decode(const char* data, size_t size)
-    void cpp_drop_data(const data_t* data, bint drop_field)
+    void skx_drv_hexdump_view(const char* data, size_t size, int cols)
+    const data_t* skx_drv_base64_encode(const char* data, size_t size, bint padding)
+    const data_t* skx_drv_base64_decode(const char* data, size_t size)
+    void skx_drv_drop_data(const data_t* data, bint drop_field)
 
 cdef bytearray cast_data_to_bytes(const data_t* data):
     if data == NULL:
@@ -23,20 +23,20 @@ cdef bytearray cast_data_to_bytes(const data_t* data):
 def py_hexdump_view(str data, int cols = 16):
     cdef bytes buff = data.encode("utf-8")
     cdef size_t size = len(buff)
-    cpp_hexdump_view(buff, size, cols)
+    skx_drv_hexdump_view(buff, size, cols)
 
 def py_base64_encode(str data, bint padding = 1) -> str:
     cdef bytes buff = data.encode("utf-8")
     cdef size_t size = len(buff)
-    cdef const data_t* out = cpp_base64_encode(buff, size, padding)
+    cdef const data_t* out = skx_drv_base64_encode(buff, size, padding)
     temp = cast_data_to_bytes(out)
-    cpp_drop_data(out, 0)
+    skx_drv_drop_data(out, 0)
     return temp.decode("utf-8")
 
 def py_base64_decode(str data) -> bytearray:
     cdef bytes buff = data.encode("utf-8")
     cdef size_t size = len(buff)
-    cdef const data_t* out = cpp_base64_decode(buff, size)
+    cdef const data_t* out = skx_drv_base64_decode(buff, size)
     temp = cast_data_to_bytes(out)
-    cpp_drop_data(out, 0)
+    skx_drv_drop_data(out, 0)
     return temp

@@ -1,4 +1,6 @@
-#include "./b64.h"
+#include "./base64.h"
+
+static const char* BASE64_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "abcdefghijklmnopqrstuvwxyz" "0123456789" "+/";
 
 base64_data_t* create_base64_data(const char* val, const size_t size, const int pads) {
 #ifdef DEBUG

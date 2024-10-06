@@ -10,15 +10,15 @@
 #include "./common.hpp"
 #include "./utils.hpp"
 
-#define skfx_b64_mod shikafx::ext::base64_custom
-#define skfx_b64_enc skfx_b64_mod::Encoder
-#define skfx_b64_dec skfx_b64_mod::Decoder
+#define skfx_base64_mod shikafx::ext::base64_custom
+#define skfx_base64_enc skfx_base64_mod::Encoder
+#define skfx_base64_dec skfx_base64_mod::Decoder
 
 // short using
-#define skx_b64_enc skfx_b64_enc::encode
-#define skx_b64_dec skfx_b64_dec::decode
+#define skx_b64_enc skfx_base64_enc::encode
+#define skx_b64_dec skfx_base64_dec::decode
 
-namespace skfx_b64_mod {
+namespace skfx_base64_mod {
 
     class Encoder {
     public:

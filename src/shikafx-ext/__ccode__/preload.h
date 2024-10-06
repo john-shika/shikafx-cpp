@@ -9,7 +9,7 @@ extern "C" {
 
 #include "./common.h"
 #include "./errno.h"
-#include "./b64.h"
+#include "./base64.h"
 #include "./utils.h"
 
 #ifdef __cplusplus

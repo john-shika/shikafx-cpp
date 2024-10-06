@@ -1,6 +1,6 @@
 #include "preload.hpp"
 
-auto cpp_hexdump_view(const char* data, size_t size, int cols) -> void {
+auto skx_drv_hexdump_view(const char* data, size_t size, int cols) -> void {
     skx_hexdump_view(data, size, cols);
 }
 
@@ -12,16 +12,16 @@ auto cpp_hexdump_view(const char* data, size_t size, int cols) -> void {
  * interfacing with Cython.
  * */
 
-auto cpp_base64_encode(const char* data, size_t size, bool padding) -> const data_t* {
+auto skx_drv_base64_encode(const char* data, size_t size, bool padding) -> const data_t* {
     auto temp = skx_b64_enc((byte_t*)data, size, padding);
     return temp;
 }
 
-auto cpp_base64_decode(const char* data, size_t size) -> const data_t* {
+auto skx_drv_base64_decode(const char* data, size_t size) -> const data_t* {
     auto out = skx_b64_dec(data, size);
     return out;
 }
 
-auto cpp_drop_data(const data_t* data, bool drop_field) -> void {
+auto skx_drv_drop_data(const data_t* data, bool drop_field) -> void {
     drop_data(data, drop_field);
 }

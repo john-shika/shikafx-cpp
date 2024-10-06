@@ -15,7 +15,7 @@ from Cython.Build import cythonize
 IS_WIN32 = sys.platform == "win32"
 
 NAME = "pyskx"
-NAME_EXTENSIONS = ["c-shikafx-ext", "shikafx-ext", "pyskx-ext"]
+NAME_EXTENSIONS = ["c-shikafx-ext", "shikafx-ext", "shikafx-drv"]
 
 CXX_STD_VERSION = "/std:c++20" if IS_WIN32 else "-std=c++20"
 LIBRARY_DIR = "libs/win32" if IS_WIN32 else "libs/linux"

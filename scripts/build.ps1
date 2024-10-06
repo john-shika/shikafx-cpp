@@ -1,7 +1,7 @@
 #!pwsh
 
-$SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
-Set-Location $SCRIPT_DIR -ErrorAction Stop
+$currentWorkDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $currentWorkDir -ErrorAction Stop
 Set-Location ..
 
 New-Item -ItemType Directory -Force -Path build-win32

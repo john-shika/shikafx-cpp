@@ -14,9 +14,8 @@ extern "C" {
 #include "./common.h"
 #include "./utils.h"
 
-static const char* BASE64_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" "abcdefghijklmnopqrstuvwxyz" "0123456789" "+/";
+static const char* BASE64_CHARACTERS;
 static const int BASE64_CHARACTERS_SIZE = 64;
-
 static const char BASE64_PADDING = '=';
 
 typedef struct {

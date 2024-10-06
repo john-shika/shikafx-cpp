@@ -1,7 +1,7 @@
 #!pwsh
 
-$SCRIPT_DIR = Split-Path -Parent $MyInvocation.MyCommand.Path
-Set-Location $SCRIPT_DIR -ErrorAction Stop
+$currentWorkDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $currentWorkDir -ErrorAction Stop
 Set-Location ..
 
 New-Item -ItemType Directory -Force -Path build-win32, libs\win32
@@ -9,7 +9,7 @@ New-Item -ItemType Directory -Force -Path build-win32, libs\win32
 #Set-Location build-win32 -ErrorAction Stop
 
 cmake -S . -B build-win32
-cmake --build build-win32 --target pyskx-ext --config Release
+cmake --build build-win32 --target shikafx-drv --config Release
 #Set-Location ..
 
 $suffixes = @(
@@ -19,9 +19,9 @@ $suffixes = @(
     "shikafx-ext\Release\shikafx-ext.dll",
     "shikafx-ext\Release\shikafx-ext.exp",
     "shikafx-ext\Release\shikafx-ext.lib",
-    "pyskx-ext\Release\pyskx-ext.dll",
-    "pyskx-ext\Release\pyskx-ext.exp",
-    "pyskx-ext\Release\pyskx-ext.lib"
+    "shikafx-drv\Release\shikafx-drv.dll",
+    "shikafx-drv\Release\shikafx-drv.exp",
+    "shikafx-drv\Release\shikafx-drv.lib"
 )
 
 foreach ($suffix in $suffixes) {
