@@ -24,7 +24,6 @@ const data_t* copy_data_func(const data_t* data);
 // extra files
 #include "./utils/quicksort.h"
 #include "./utils/mergesort.h"
-#include "./utils/sort.h"
 
 #ifdef __cplusplus
 }

@@ -145,7 +145,7 @@ const data_t* data_trimToUpperCase(const data_t* data);
 
 // extras files
 #include "./commons/datetime.h"
-#include "./commons/typed_num.h"
+#include "./commons/num_typed.h"
 
 #ifdef __cplusplus
 }

@@ -7,12 +7,15 @@ extern "C" {
 
 #include "../common.h"
 
-// using size_t, because skx_quicksort_typed_nums decrement low value at 0
+void skx_NumTyped__quicksort__swap(NumTyped_t* data, size_t left, size_t right);
+size_t skx_NumTyped__quicksort__partition(NumTyped_t* data, size_t low, size_t high);
+void skx_NumTyped__quicksort__init(NumTyped_t* data, size_t low, size_t high);
+void skx_NumTyped__quicksort(NumTyped_t* data, size_t size);
 
-void skx_quicksort_typed_num__swap(typed_num_t* data, size_t left, size_t right);
-size_t skx_quicksort_typed_num__partition(typed_num_t* data, size_t low, size_t high);
-void skx_quicksort_typed_num__init(typed_num_t* data, size_t low, size_t high);
-void skx_quicksort_typed_num(typed_num_t* data, size_t size);
+void skx_quicksort_swap(int* data, size_t left, size_t right);
+size_t skx_quicksort_partition(int* data, size_t low, size_t high);
+void skx_quicksort_init(int* data, size_t low, size_t high);
+void skx_quicksort(int* data, size_t size);
 
 #ifdef __cplusplus
 }

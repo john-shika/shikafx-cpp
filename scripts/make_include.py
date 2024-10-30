@@ -31,10 +31,10 @@ def copy_fs(src_dir: str, dst_dir: str) -> None:
     os.makedirs(dst, exist_ok=True)
     print(f"Create New Dir: {dst}")
 
-    for f in src.glob("*"):
-        if PATTERN_HEADERS.match(str(f)):
-            print(f"Copying File {f}")
-            shutil.copy(f, dst)
+    for _float in src.glob("*"):
+        if PATTERN_HEADERS.match(str(_float)):
+            print(f"Copying File {_float}")
+            shutil.copy(_float, dst)
 
     return
 

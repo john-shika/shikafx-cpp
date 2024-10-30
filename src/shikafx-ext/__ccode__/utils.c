@@ -55,4 +55,3 @@ const data_t* copy_data_func(const data_t* data) {
 // extra files
 #include "./utils/quicksort.c"
 #include "./utils/mergesort.c"
-#include "./utils/sort.c"

@@ -38,9 +38,8 @@ int main() {
 //                create_typed_num__double(4)
 //        };
 //
-//        //skx_mergesort_typed_num(nums, n);
-//        skx_quicksort_typed_num(nums, n);
-//        //skx_sort_typed_num(nums, n);
+//        //skx_NumTyped__mergesort(nums, n);
+//        skx_NumTyped__quicksort(nums, n);
 //
 //        for (size_t i = 0; i < n; i++) {
 //            printf("%.2Lf ", skx_typed_num__to_ldouble(nums[i]));

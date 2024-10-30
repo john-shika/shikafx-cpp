@@ -9,11 +9,13 @@ extern "C" {
 
 #include "../common.h"
 
-// using size_t, because skx_mergesort_typed_nums decrement low value at 0
+void skx_NumTyped__mergesort__merge(NumTyped_t* data, size_t left, size_t mid, size_t right);
+void skx_NumTyped__mergesort__init(NumTyped_t* data, size_t left, size_t right);
+void skx_NumTyped__mergesort(NumTyped_t* data, size_t size);
 
-void skx_mergesort_typed_num__merge(typed_num_t* data, size_t left, size_t mid, size_t right);
-void skx_mergesort_typed_num__init(typed_num_t* data, size_t left, size_t right);
-void skx_mergesort_typed_num(typed_num_t* data, size_t size);
+void skx_mergesort_merge(int* data, size_t left, size_t mid, size_t right);
+void skx_mergesort_init(int* data, size_t left, size_t right);
+void skx_mergesort(int* data, size_t size);
 
 #ifdef __cplusplus
 }
