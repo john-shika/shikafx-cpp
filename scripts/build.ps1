@@ -1,7 +1,8 @@
 #!pwsh
 
-$currentWorkDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-Set-Location $currentWorkDir -ErrorAction Stop
+$currWorkDir = Get-Location
+$scriptRootDir = Split-Path -Parent $MyInvocation.MyCommand.Path
+Set-Location $scriptRootDir -ErrorAction Stop
 Set-Location ..
 
 New-Item -ItemType Directory -Force -Path build-win32
@@ -10,4 +11,5 @@ New-Item -ItemType Directory -Force -Path build-win32
 
 cmake -S . -B build-win32
 cmake --build build-win32 --target shikafx --config Release
-#Set-Location ..
+
+Set-Location $currWorkDir

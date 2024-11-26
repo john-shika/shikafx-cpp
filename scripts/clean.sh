@@ -4,8 +4,11 @@ chdir-err() {
   echo "failed change directory!" && exit 1
 }
 
-currentWorkDir="$(dirname "$0")"
-cd "$currentWorkDir" || chdir-err
+currWorkDir="$(pwd)"
+scriptRootDir="$(dirname "$0")"
+cd "$scriptRootDir" || chdir-err
 cd ..
 
 rm -rvf build build-linux
+
+cd "$currWorkDir" || chdir-err
